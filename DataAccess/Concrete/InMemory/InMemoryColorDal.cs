@@ -18,7 +18,8 @@ namespace DataAccess.Concrete.InMemory
                 new Color{ColorId=2,ColorName="Yellow"},
                 new Color{ColorId=3,ColorName="White"},
                 new Color{ColorId=4,ColorName="red"},
-                new Color{ColorId=5,ColorName="black"}
+                new Color{ColorId=5,ColorName="black"},
+                new Color{ColorId=6,ColorName="Gray"}
             };
         }
         public void Add(Color color)
