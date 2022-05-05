@@ -1,6 +1,6 @@
-﻿using System;
+﻿
 
-namespace Entities.Abstract
+namespace Core.DataAccess
 { 
     public interface IEntity
     {

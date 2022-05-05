@@ -1,10 +1,12 @@
-﻿using Entities.Abstract;
+﻿using Core.DataAccess;
+using System.ComponentModel.DataAnnotations;
 
 namespace Entities.Concrete
 {
-    public class Color:IEntity
+    public class Color : IEntity
     {
-        public int ColorId { get; set; }
-        public string ColorName { get; set; }
+        [Key]
+        public int Color_Id { get; set; }
+        public string? Color_Name { get; set; }
     }
 }

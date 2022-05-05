@@ -1,13 +1,12 @@
 ﻿using Core.DataAccess;
 using System.ComponentModel.DataAnnotations;
 
-
 namespace Entities.Concrete
 {
-    public class Brand:IEntity
+    public class Category:IEntity
     {
         [Key]
-        public int Brand_Id { get; set; }
-        public string? Brand_Name { get; set; }
+        public int Category_Id { get; set; }
+        public string? Category_Name { get; set; }
     }
 }

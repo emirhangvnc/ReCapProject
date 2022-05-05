@@ -11,13 +11,18 @@ namespace ConsoleUI
     {
         static void Main(string[] args)
         {
-            CarManager carManager = new CarManager(new EfRentalCarDal());
+            ModelManager modelManager = new ModelManager(new EfModelDal());
+            BrandManager brandManager = new BrandManager(new EfBrandDal());
+            ColorManager colorManager = new ColorManager(new EfColorDal());
 
-            foreach (var item in carManager.GetAll())
+            foreach (var model in modelManager.GetModelDetails())
             {                
-                Console.WriteLine(item.Car_Name);
-                Console.WriteLine(carManager.GetByBrandId(item.Brand_Id));
-                Console.WriteLine(item.Daily_Price.ToString());
+                Console.WriteLine(model.ModelName);
+                Console.WriteLine(model.BrandName);
+                Console.WriteLine(model.CategoryName);
+                Console.WriteLine(model.ColorName);
+                Console.WriteLine(model.DailyPrice);
+                Console.WriteLine("-----------------");
             }            
             
         }

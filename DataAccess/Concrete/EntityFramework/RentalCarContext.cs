@@ -1,10 +1,5 @@
 ﻿using Entities.Concrete;
 using Microsoft.EntityFrameworkCore;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace DataAccess.Concrete.EntityFramework
 {
@@ -15,9 +10,13 @@ namespace DataAccess.Concrete.EntityFramework
             optionsBuilder.UseSqlServer(@"Server=.\SQLEXPRESS;Database=RentalCar;Trusted_Connection=True");
         }
 
-        public DbSet<Car> cars { get; set; }
-        public DbSet<Brand> brands { get; set; }
-        public DbSet<Color> colors { get; set; }
-        public DbSet<Gender> genders { get; set; }
+        public DbSet<Model> Models { get; set; }
+        public DbSet<Brand> Brands { get; set; }
+        public DbSet<Color> Colors { get; set; }
+        public DbSet<CarTypeDetails> CarTypeDetails { get; set; }
+        public DbSet<Category> Categories { get; set; }
+        public DbSet<Customer> Customers { get; set; }
+        public DbSet<FuelType> FuelType { get; set; }
+        public DbSet<Gender> Genders { get; set; }
     }
 }

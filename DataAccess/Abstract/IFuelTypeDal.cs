@@ -3,7 +3,8 @@ using Core.Entities;
 
 namespace DataAccess.Abstract
 {
-    public interface IGenderDal:IEntityRepository<Gender>
+    public interface IFuelTypeDal:IEntityRepository<FuelType>
     {
+
     }
 }
