@@ -1,4 +1,5 @@
-﻿using Entities.Concrete;
+﻿using Core.Utilities.Results.Abstract;
+using Entities.Concrete;
 using Entities.DTOs;
 using System.Collections.Generic;
 
@@ -6,13 +7,20 @@ namespace Business.Abstract
 {
     public interface IModelService
     {
-        List<Model> GetAll();
-        List<Model> GetByBrandId(int id); //By=ile
-        List<Model> GetByDailyPriceContains(decimal minPrice, decimal maxPrice);
-        List<Model> GetByDailyPrice(decimal price);
-        List<Model> GetByDailyPriceBuyuktur(decimal price);
-        List<Model> GetByDailyPriceKucuktur(decimal price);
-        List<Model> GetByColor(int id);
-        List<ModelDetailDto> GetModelDetails();
+        IDataResult<Model> GetModelId(int modelId);
+
+        IDataResult<List<Model>> GetAll();
+        IDataResult<List<Model>> GetByBrandId(int brandId);
+        IDataResult<List<Model>> GetByColorId(int colorId);
+
+        IDataResult<List<Model>> GetByDailyPriceContains(decimal minPrice, decimal maxPrice);
+        IDataResult<List<Model>> GetByDailyPrice(decimal price);
+        IDataResult<List<Model>> GetByDailyPriceBuyuktur(decimal price);
+        IDataResult<List<Model>> GetByDailyPriceKucuktur(decimal price);
+        IDataResult<List<ModelDetailDto>> GetModelDetails();
+
+        IResult Add(Model model);
+        IResult Delete(Model model);
+        IResult Update(Model model);
     }
 }

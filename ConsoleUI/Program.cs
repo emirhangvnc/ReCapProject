@@ -15,16 +15,12 @@ namespace ConsoleUI
             BrandManager brandManager = new BrandManager(new EfBrandDal());
             ColorManager colorManager = new ColorManager(new EfColorDal());
 
-            foreach (var model in modelManager.GetModelDetails())
+            foreach (var modelY in modelManager.GetModelDetails().Data)
             {                
-                Console.WriteLine(model.ModelName);
-                Console.WriteLine(model.BrandName);
-                Console.WriteLine(model.CategoryName);
-                Console.WriteLine(model.ColorName);
-                Console.WriteLine(model.DailyPrice);
+                Console.WriteLine(modelY.ModelName);
+                Console.WriteLine(modelY.BrandName);
                 Console.WriteLine("-----------------");
-            }            
-            
+            }    
         }
     }
 }
