@@ -7,7 +7,7 @@ namespace Entities.Concrete
     public class CarTypeDetails:IEntity
     {
         [Key]
-        public int Detail_Id { get; set; }
+        public int CarTypeDetail_Id { get; set; }
         public int FuelType_Id { get; set; }
         public int Category_Id { get; set; }
     }

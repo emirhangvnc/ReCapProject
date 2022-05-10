@@ -6,7 +6,7 @@ namespace Entities.Concrete
     public class FuelType:IEntity
     {
         [Key]
-        public int Fuel_Id { get; set; }
-        public string? Fuel_Name { get; set; }
+        public int FuelType_Id { get; set; }
+        public string? FuelType_Name { get; set; }
     }
 }

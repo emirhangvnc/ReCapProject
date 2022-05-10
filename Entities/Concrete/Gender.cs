@@ -7,6 +7,6 @@ namespace Entities.Concrete
     {
         [Key]
         public int Gender_Id { get; set; }
-        public string? Gender_Name { get; set; }
+        public string Gender_Name { get; set; }
     }
 }

@@ -16,7 +16,9 @@ namespace DataAccess.Concrete.EntityFramework
         public DbSet<CarTypeDetails> CarTypeDetails { get; set; }
         public DbSet<Category> Categories { get; set; }
         public DbSet<Customer> Customers { get; set; }
-        public DbSet<FuelType> FuelType { get; set; }
+        public DbSet<FuelType> FuelTypes { get; set; }
         public DbSet<Gender> Genders { get; set; }
+        public DbSet<User> Users { get; set; }
+        public DbSet<Rental> Rentals { get; set; }
     }
 }

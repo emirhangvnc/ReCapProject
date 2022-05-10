@@ -21,7 +21,7 @@ namespace DataAccess.Concrete.EntityFramework
                              on m.Color_Id equals c.Color_Id
 
                              join d in context.CarTypeDetails
-                             on m.CarType_Id equals d.Detail_Id
+                             on m.CarTypeDetail_Id equals d.CarTypeDetail_Id
 
                              join cat in context.Categories
                              on d.Category_Id equals cat.Category_Id
@@ -33,7 +33,7 @@ namespace DataAccess.Concrete.EntityFramework
                                  BrandName = b.Brand_Name,
                                  ColorName = c.Color_Name,
                                  CategoryName = cat.Category_Name,
-                                 DailyPrice = m.Daily_Price,
+                                 DailyPrice = (decimal)m.Daily_Price,
                              };
                 return result.ToList();
             }

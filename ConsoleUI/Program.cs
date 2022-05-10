@@ -13,12 +13,13 @@ namespace ConsoleUI
         {
             ModelManager modelManager = new ModelManager(new EfModelDal());
             BrandManager brandManager = new BrandManager(new EfBrandDal());
-            ColorManager colorManager = new ColorManager(new EfColorDal());
+            CustomerManager customerManager = new CustomerManager(new EfCustomerDal());
 
-            foreach (var modelY in modelManager.GetModelDetails().Data)
+            foreach (var customer in customerManager.GetCustomerDetails().Data)
             {                
-                Console.WriteLine(modelY.ModelName);
-                Console.WriteLine(modelY.BrandName);
+                Console.WriteLine(customer.FirstName);
+                Console.WriteLine(customer.GenderName);
+                Console.WriteLine(customer.GenderName);
                 Console.WriteLine("-----------------");
             }    
         }

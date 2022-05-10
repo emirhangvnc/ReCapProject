@@ -38,7 +38,7 @@ namespace Business.Concrete
         }
         public IDataResult<FuelType> GetFuelTypeId(int fuelTypeId)
         {
-            return new SuccessDataResult<FuelType>(_fuelTypeDal.Get(f=>f.Fuel_Id==fuelTypeId));
+            return new SuccessDataResult<FuelType>(_fuelTypeDal.Get(f=>f.FuelType_Id==fuelTypeId));
         }
     }
 }
