@@ -1,5 +1,7 @@
 ﻿using Business.Abstract;
 using Business.Constants;
+using Business.ValidationRules.FluentValidation;
+using Core.Aspects.Autofac.Validation;
 using Core.Utilities.Results.Abstract;
 using Core.Utilities.Results.Concrete;
 using DataAccess.Abstract;
@@ -16,15 +18,9 @@ namespace Business.Concrete
             _categoryDal= categoryDal;  
         }
 
-        public IDataResult<List<Category>> GetAll()
-        {
-            return new SuccessDataResult<List<Category>>(_categoryDal.GetAll(), Messages.ModelsListed);
-        }
-        public IDataResult<Category> GetCategoryId(int categoryId)
-        {
-            return new SuccessDataResult<Category>(_categoryDal.Get(c=>c.Category_Id==categoryId));
-        }
+        #region Void işlemleri
 
+        [ValidationAspect(typeof(CategoryValidator))]
         public IResult Add(Category category)
         {
             _categoryDal.Add(category);
@@ -42,5 +38,16 @@ namespace Business.Concrete
             _categoryDal.Update(category);
             return new SuccessResult(Messages.CategoryUpdated);
         }
+        #endregion
+
+        public IDataResult<List<Category>> GetAll()
+        {
+            return new SuccessDataResult<List<Category>>(_categoryDal.GetAll(), Messages.CategoriesListed);
+        }
+        public IDataResult<Category> GetCategoryId(int categoryId)
+        {
+            return new SuccessDataResult<Category>(_categoryDal.Get(c=>c.Category_Id==categoryId));
+        }
+
     }
 }

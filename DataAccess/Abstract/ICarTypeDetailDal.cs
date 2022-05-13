@@ -3,7 +3,7 @@ using Core.Entities;
 
 namespace DataAccess.Abstract
 {
-    public interface ICarTypeDetailsDal :IEntityRepository<CarTypeDetails>
+    public interface ICarTypeDetailDal :IEntityRepository<CarTypeDetail>
     {
     }
 }

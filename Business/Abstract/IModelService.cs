@@ -7,7 +7,7 @@ namespace Business.Abstract
 {
     public interface IModelService
     {
-        IDataResult<Model> GetModelId(int modelId);
+        IDataResult<Model> GetByModelId(int modelId);
 
         IDataResult<List<Model>> GetAll();
         IDataResult<List<Model>> GetByBrandId(int brandId);

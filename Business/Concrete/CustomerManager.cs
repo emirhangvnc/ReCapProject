@@ -1,5 +1,7 @@
 ﻿using Business.Abstract;
 using Business.Constants;
+using Business.ValidationRules.FluentValidation;
+using Core.Aspects.Autofac.Validation;
 using Core.Utilities.Results.Abstract;
 using Core.Utilities.Results.Concrete;
 using DataAccess.Abstract;
@@ -17,6 +19,9 @@ namespace Business.Concrete
             _customerDal = customerDal;
         }
 
+        #region Void işlemleri
+
+        [ValidationAspect(typeof(CustomerValidator))]
         public IResult Add(Customer customer)
         {
             _customerDal.Add(customer);
@@ -32,19 +37,21 @@ namespace Business.Concrete
             _customerDal.Delete(customer);
             return new SuccessResult(Messages.CustomerDeleted);
         }
+        #endregion
+
+        public IDataResult<List<Customer>> GetAll()
+        {          
+            return new SuccessDataResult<List<Customer>>(_customerDal.GetAll(),Messages.CustomerListed);
+        }
+
+        public IDataResult<List<CustomerDetailDto>> GetCustomerDetails()
+        {
+            return new SuccessDataResult<List<CustomerDetailDto>>(_customerDal.GetCustomerDetails());
+        }
 
         public IDataResult<Customer> GetById(int customerId)
         {
             return new SuccessDataResult<Customer>(_customerDal.Get(c=>c.Customer_Id==customerId));
-        }
-
-        public IDataResult<List<Customer>> GetAll()
-        {
-            return new SuccessDataResult<List<Customer>>(_customerDal.GetAll(),Messages.CustomerListed);
-        }
-        public IDataResult<List<CustomerDetailDto>> GetCustomerDetails()
-        {
-            return new SuccessDataResult<List<CustomerDetailDto>>(_customerDal.GetCustomerDetails());
         }
     }
 }

@@ -8,6 +8,6 @@ namespace Entities.Concrete
     {
         [Key]
         public int Brand_Id { get; set; }
-        public string? Brand_Name { get; set; }
+        public string Brand_Name { get; set; }
     }
 }

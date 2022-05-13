@@ -1,5 +1,7 @@
 ﻿using Business.Abstract;
 using Business.Constants;
+using Business.ValidationRules.FluentValidation;
+using Core.Aspects.Autofac.Validation;
 using Core.Utilities.Results.Abstract;
 using Core.Utilities.Results.Concrete;
 using DataAccess.Abstract;
@@ -19,8 +21,28 @@ namespace Business.Concrete
             _modelDal = modelDal;
         }
 
+        #region Void işlemleri
+
+        [ValidationAspect(typeof(ModelValidator))]
+        public IResult Add(Model model)
+        {
+             _modelDal.Add(model);
+            return new SuccessResult(Messages.ModelAdded);
+        }
+        public IResult Delete(Model model)
+        {
+            _modelDal.Delete(model);
+            return new SuccessResult(Messages.ModelDeleted);
+        }
+        public IResult Update(Model model)
+        {
+            _modelDal.Update(model);
+            return new SuccessResult(Messages.ModelUpdated);
+        }     
+        #endregion
+
         #region Tekli data kontrol ve getir
-        public IDataResult<Model> GetModelId(int modelId)
+        public IDataResult<Model> GetByModelId(int modelId)
         {
             return new SuccessDataResult<Model>(_modelDal.Get(m => m.Model_Id == modelId));
         }
@@ -65,22 +87,5 @@ namespace Business.Concrete
             return new SuccessDataResult<List<ModelDetailDto>>(_modelDal.GetModelDetails());
         }
 
-        #region Void işlemleri
-        public IResult Add(Model model)
-        {
-             _modelDal.Add(model);
-            return new SuccessResult(Messages.ModelAdded);
-        }
-        public IResult Delete(Model model)
-        {
-            _modelDal.Delete(model);
-            return new SuccessResult(Messages.ModelDeleted);
-        }
-        public IResult Update(Model model)
-        {
-            _modelDal.Update(model);
-            return new SuccessResult(Messages.ModelUpdated);
-        }     
-        #endregion
     }
 }

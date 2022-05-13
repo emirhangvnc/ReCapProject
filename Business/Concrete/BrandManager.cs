@@ -5,6 +5,8 @@ using System.Collections.Generic;
 using Core.Utilities.Results.Concrete;
 using Business.Constants;
 using Core.Utilities.Results.Abstract;
+using Core.Aspects.Autofac.Validation;
+using Business.ValidationRules.FluentValidation;
 
 namespace Business.Concrete
 {
@@ -16,6 +18,9 @@ namespace Business.Concrete
             _brandDal = brandDal;
         }
 
+        #region Void işlemleri
+
+        [ValidationAspect(typeof(BrandValidator))]
         public IResult Add(Brand brand)
         {
             _brandDal.Add(brand);
@@ -31,6 +36,7 @@ namespace Business.Concrete
             _brandDal.Update(brand);
             return new SuccessResult(Messages.BrandUpdated);
         }
+        #endregion
 
         public IDataResult<List<Brand>> GetAll()
         {

@@ -4,7 +4,7 @@ using System.ComponentModel.DataAnnotations;
 
 namespace Entities.Concrete
 {
-    public class CarTypeDetails:IEntity
+    public class CarTypeDetail:IEntity
     {
         [Key]
         public int CarTypeDetail_Id { get; set; }
