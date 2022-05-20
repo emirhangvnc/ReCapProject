@@ -1,5 +1,6 @@
 ﻿using Core.DataAccess.EntityFramework;
 using DataAccess.Abstract;
+using DataAccess.Concrete.EntityFramework.Context;
 using Entities.Concrete;
 using Entities.DTOs;
 using Microsoft.EntityFrameworkCore;
@@ -18,10 +19,10 @@ namespace DataAccess.Concrete.EntityFramework
             {
                 var result = from c in context.Customers
                              join u in context.Users
-                             on c.User_Id equals u.User_Id
+                             on c.User_Id equals u.Id
 
                              join g in context.Genders
-                             on u.Gender_Id equals g.Gender_Id
+                             on u.GenderId equals g.Gender_Id
                             
                              select new CustomerDetailDto
                              {

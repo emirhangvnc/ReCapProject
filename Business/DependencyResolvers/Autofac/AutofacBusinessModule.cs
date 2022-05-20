@@ -17,6 +17,12 @@ namespace Business.DependencyResolvers.Autofac
             builder.RegisterType<BrandManager>().As<IBrandService>().SingleInstance();
             builder.RegisterType<EfBrandDal>().As<IBrandDal>().SingleInstance();
 
+            builder.RegisterType<CarImageManager>().As<ICarImageService>().SingleInstance();
+            builder.RegisterType<EfCarImageDal>().As<ICarImageDal>().SingleInstance();
+
+            builder.RegisterType<CarTypeDetailManager>().As<ICarTypeDetailService>().SingleInstance();
+            builder.RegisterType<EfCarTypeDetailDal>().As<ICarTypeDetailDal>().SingleInstance();
+
             builder.RegisterType<CategoryManager>().As<ICategoryService>().SingleInstance();
             builder.RegisterType<EfCategoryDal>().As<ICategoryDal>().SingleInstance();
 
@@ -29,6 +35,9 @@ namespace Business.DependencyResolvers.Autofac
             builder.RegisterType<FuelTypeManager>().As<IFuelTypeService>().SingleInstance();
             builder.RegisterType<EfFuelTypeDal>().As<IFuelTypeDal>().SingleInstance();
 
+            builder.RegisterType<GenderManager>().As<IGenderService>().SingleInstance();
+            builder.RegisterType<EfGenderDal>().As<IGenderDal>().SingleInstance();
+
             builder.RegisterType<ModelManager>().As<IModelService>().SingleInstance();
             builder.RegisterType<EfModelDal>().As<IModelDal>().SingleInstance();
 
@@ -37,10 +46,6 @@ namespace Business.DependencyResolvers.Autofac
 
             builder.RegisterType<UserManager>().As<IUserService>().SingleInstance();
             builder.RegisterType<EfUserDal>().As<IUserDal>().SingleInstance();
-
-            builder.RegisterType<CarImageManager>().As<ICarImageService>().SingleInstance();
-            builder.RegisterType<EfCarImageDal>().As<ICarImageDal>().SingleInstance();
-
 
             var assembly = System.Reflection.Assembly.GetExecutingAssembly();
             builder.RegisterAssemblyTypes(assembly).AsImplementedInterfaces()

@@ -1,5 +1,6 @@
 ﻿using Core.DataAccess.EntityFramework;
 using DataAccess.Abstract;
+using DataAccess.Concrete.EntityFramework.Context;
 using Entities.Concrete;
 using Entities.DTOs;
 using System.Collections.Generic;
@@ -34,6 +35,7 @@ namespace DataAccess.Concrete.EntityFramework
                                  ColorName = c.Color_Name,
                                  CategoryName = cat.Category_Name,
                                  DailyPrice = (decimal)m.Daily_Price,
+                                 ImagePath= (from i in context.CarImages where i.CarId==m.Model_Id select i.ImagePath).FirstOrDefault()
                              };
                 return result.ToList();
             }

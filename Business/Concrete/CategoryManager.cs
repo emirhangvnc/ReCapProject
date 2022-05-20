@@ -48,6 +48,5 @@ namespace Business.Concrete
         {
             return new SuccessDataResult<Category>(_categoryDal.Get(c=>c.Category_Id==categoryId));
         }
-
     }
 }

@@ -1,13 +1,14 @@
-﻿using Entities.Concrete;
+﻿using Core.Entities.Concrete;
+using Entities.Concrete;
 using Microsoft.EntityFrameworkCore;
 
-namespace DataAccess.Concrete.EntityFramework
+namespace DataAccess.Concrete.EntityFramework.Context
 {
-    public class RentalCarContext:DbContext
+    public class RentalCarContext : DbContext
     {
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
-            optionsBuilder.UseSqlServer(@"Server=.\SQLEXPRESS;Database=RentalCar;Trusted_Connection=True");
+            optionsBuilder.UseSqlServer(@"Server=(localdb)\mssqllocaldb;Database=RentalCar;Trusted_Connection=True");
         }
 
         public DbSet<Brand> Brands { get; set; }
@@ -21,5 +22,7 @@ namespace DataAccess.Concrete.EntityFramework
         public DbSet<Model> Models { get; set; }
         public DbSet<Rental> Rentals { get; set; }
         public DbSet<User> Users { get; set; }
+        public DbSet<UserOperationClaim> UserOperationClaims { get; set; }
+        public DbSet<OperationClaim> OperationClaims { get; set; }
     }
 }

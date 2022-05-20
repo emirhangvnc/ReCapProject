@@ -41,12 +41,10 @@ namespace Business.Concrete
         }     
         #endregion
 
-        #region Tekli data kontrol ve getir
         public IDataResult<Model> GetByModelId(int modelId)
         {
             return new SuccessDataResult<Model>(_modelDal.Get(m => m.Model_Id == modelId));
         }
-        #endregion
 
         public IDataResult<List<Model>> GetAll()
         {

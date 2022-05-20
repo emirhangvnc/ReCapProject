@@ -1,4 +1,4 @@
-﻿using Entities.Concrete;
+﻿using Core.Entities.Concrete;
 using FluentValidation;
 
 namespace Business.ValidationRules.FluentValidation
@@ -15,9 +15,9 @@ namespace Business.ValidationRules.FluentValidation
             RuleFor(u => u.LastName).Length(2, 25).WithMessage("En Fazla 25 Karakter Olabilir Soy İsim");
             RuleFor(u => u.LastName).NotEmpty();
 
-            RuleFor(u => u.Password).MinimumLength(4).WithMessage("En Az 4 Karakterli Bir Şifre Girinzi");
-
-            RuleFor(u => u.Gender_Id).NotEmpty();
+            RuleFor(u => u.GenderId).NotEmpty();
+            RuleFor(u => u.Status).NotEmpty();
+            RuleFor(u => u.Email).NotEmpty();
         }
     }
 }

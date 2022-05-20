@@ -26,7 +26,7 @@ namespace WebAPI.Controllers
             return BadRequest(result);
         }
 
-        [HttpGet("getcustomerdetail")]
+        [HttpGet("getmodeldetail")]
         public IActionResult GetCustomerDetails()
         {
             var result = _modelService.GetModelDetails();

@@ -17,9 +17,11 @@ namespace Business.Concrete
     internal class CarImageManager : ICarImageService
     {
         ICarImageDal _carImageDal;
+        IFileHelper _fileHelper;
         public CarImageManager(ICarImageDal carImageDal, IFileHelper fileHelper, IModelService modelService)
         {
             _carImageDal = carImageDal;
+            _fileHelper = fileHelper;
         }
 
         #region Void
@@ -42,6 +44,7 @@ namespace Business.Concrete
 
         public IResult Delete(CarImage carImage)
         {
+            _fileHelper.Delete(carImage.ImagePath);
             _carImageDal.Delete(carImage);
             return new SuccessResult(Messages.CarImageDeleted);
         }
@@ -49,6 +52,15 @@ namespace Business.Concrete
         [ValidationAspect(typeof(CarImageValidator))]
         public IResult Update(IFormFile formFile, CarImage carImage)
         {
+            IResult result = BusinessRules.Run(
+                 CheckIfImageCountOfCarCorrect(carImage.CarId),
+                 TurnDateNowAndCheckImage(carImage)
+                 );
+            if (result != null)
+            {
+                return result;
+            }
+
             _carImageDal.Update(carImage);
             return new SuccessResult(Messages.CarImageUpdated);
         }
@@ -65,6 +77,7 @@ namespace Business.Concrete
         }
 
         #region Özel Methodlar
+
         private IResult CheckIfImageCountOfCarCorrect(int modelId)
         {
             var result = _carImageDal.GetAll(c => c.CarId == modelId).Count;
