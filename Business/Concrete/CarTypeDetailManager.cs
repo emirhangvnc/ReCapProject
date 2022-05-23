@@ -47,7 +47,7 @@ namespace Business.Concrete
 
         public IDataResult<CarTypeDetail> GetCarTypeDetailId(int detailId)
         {
-            return new SuccessDataResult<CarTypeDetail>(_carTypeDetailDal.Get(c => c.CarTypeDetail_Id == detailId));
+            return new SuccessDataResult<CarTypeDetail>(_carTypeDetailDal.Get(c => c.CarTypeDetailId == detailId));
         }
     }
 }

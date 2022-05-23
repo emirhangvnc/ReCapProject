@@ -7,16 +7,16 @@ namespace Business.ValidationRules.FluentValidation
     {
         public ModelValidator()
         {
-            RuleFor(m =>m.Model_Name).MinimumLength(2).WithMessage("Model Adı En Az 2 Karakter Olmalıdır");
-            RuleFor(m => m.Model_Name).MaximumLength(20).WithMessage("Model Adı En Fazla 20 Karakter Olabilir");
-            RuleFor(m => m.Model_Name).NotEmpty();
+            RuleFor(m =>m.ModelName).MinimumLength(2).WithMessage("Model Adı En Az 2 Karakter Olmalıdır");
+            RuleFor(m => m.ModelName).MaximumLength(20).WithMessage("Model Adı En Fazla 20 Karakter Olabilir");
+            RuleFor(m => m.ModelName).NotEmpty();
 
-            RuleFor(m => m.Brand_Id).NotEmpty();
-            RuleFor(m => m.CarTypeDetail_Id).NotEmpty();
+            RuleFor(m => m.BrandId).NotEmpty();
+            RuleFor(m => m.CarTypeDetailId).NotEmpty();
 
-            RuleFor(m => m.Model_Year).NotEmpty();
+            RuleFor(m => m.ModelYear).NotEmpty();
 
-            RuleFor(m => m.Daily_Price).GreaterThan(0);
+            RuleFor(m => m.DailyPrice).GreaterThan(0);
 
         }
     }

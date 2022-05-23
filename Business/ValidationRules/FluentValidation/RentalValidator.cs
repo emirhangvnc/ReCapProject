@@ -7,7 +7,9 @@ namespace Business.ValidationRules.FluentValidation
     {
         public RentalValidator()
         {
-            RuleFor(r => r.RentDate.Date).NotEmpty();
+            RuleFor(r => r.RentDate.Date).NotEmpty().WithMessage("Tarih Giriniz");
+            RuleFor(r => r.CustomerId).NotEmpty().WithMessage("Müşteri Giriniz");
+            RuleFor(r => r.ModelId).NotEmpty().WithMessage("Model Giriniz");
         }
     }
 }

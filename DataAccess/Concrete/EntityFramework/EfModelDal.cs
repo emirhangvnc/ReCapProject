@@ -16,26 +16,26 @@ namespace DataAccess.Concrete.EntityFramework
             {
                 var result = from m in context.Models
                              join b in context.Brands
-                             on m.Brand_Id equals b.Brand_Id
+                             on m.BrandId equals b.BrandId
 
                              join c in context.Colors
-                             on m.Color_Id equals c.Color_Id
+                             on m.ColorId equals c.ColorId
 
                              join d in context.CarTypeDetails
-                             on m.CarTypeDetail_Id equals d.CarTypeDetail_Id
+                             on m.CarTypeDetailId equals d.CarTypeDetailId
 
                              join cat in context.Categories
-                             on d.Category_Id equals cat.Category_Id
+                             on d.CategoryId equals cat.CategoryId
 
                              select new ModelDetailDto
                              {
-                                 ModelId = m.Model_Id,
-                                 ModelName=m.Model_Name,
-                                 BrandName = b.Brand_Name,
-                                 ColorName = c.Color_Name,
-                                 CategoryName = cat.Category_Name,
-                                 DailyPrice = (decimal)m.Daily_Price,
-                                 ImagePath= (from i in context.CarImages where i.CarId==m.Model_Id select i.ImagePath).FirstOrDefault()
+                                 ModelId = m.ModelId,
+                                 ModelName=m.ModelName,
+                                 BrandName = b.BrandName,
+                                 ColorName = c.ColorName,
+                                 CategoryName = cat.CategoryName,
+                                 DailyPrice = (decimal)m.DailyPrice,
+                                 ImagePath= (from i in context.CarImages where i.CarId==m.ModelId select i.ImagePath).FirstOrDefault()
                              };
                 return result.ToList();
             }

@@ -43,7 +43,7 @@ namespace Business.Concrete
 
         public IDataResult<Model> GetByModelId(int modelId)
         {
-            return new SuccessDataResult<Model>(_modelDal.Get(m => m.Model_Id == modelId));
+            return new SuccessDataResult<Model>(_modelDal.Get(m => m.ModelId == modelId));
         }
 
         public IDataResult<List<Model>> GetAll()
@@ -57,28 +57,28 @@ namespace Business.Concrete
         }
         public IDataResult<List<Model>> GetByBrandId(int brandId)
         {
-            return new SuccessDataResult<List<Model>>(_modelDal.GetAll().Where(m => m.Brand_Id == brandId).ToList());
+            return new SuccessDataResult<List<Model>>(_modelDal.GetAll().Where(m => m.BrandId == brandId).ToList());
         }
         public IDataResult<List<Model>> GetByColorId(int colorId)
         {
-            return new SuccessDataResult<List<Model>>(_modelDal.GetAll().Where(c => c.Color_Id == colorId).ToList());
+            return new SuccessDataResult<List<Model>>(_modelDal.GetAll().Where(c => c.ColorId == colorId).ToList());
         }
 
         public IDataResult<List<Model>> GetByDailyPriceContains(decimal minPrice, decimal maxPrice)
         {
-            return new SuccessDataResult<List<Model>>(_modelDal.GetAll().Where(c => c.Daily_Price >= minPrice && c.Daily_Price <= maxPrice).ToList());
+            return new SuccessDataResult<List<Model>>(_modelDal.GetAll().Where(c => c.DailyPrice >= minPrice && c.DailyPrice <= maxPrice).ToList());
         }
         public IDataResult<List<Model>> GetByDailyPrice(decimal price)
         {
-            return new SuccessDataResult<List<Model>>(_modelDal.GetAll().Where(c => c.Daily_Price == price).ToList());
+            return new SuccessDataResult<List<Model>>(_modelDal.GetAll().Where(c => c.DailyPrice == price).ToList());
         }
         public IDataResult<List<Model>> GetByDailyPriceBuyuktur(decimal price)
         {
-            return new SuccessDataResult<List<Model>>(_modelDal.GetAll().Where(c => c.Daily_Price >= price).ToList());
+            return new SuccessDataResult<List<Model>>(_modelDal.GetAll().Where(c => c.DailyPrice >= price).ToList());
         }
         public IDataResult<List<Model>> GetByDailyPriceKucuktur(decimal price)
         {
-            return new SuccessDataResult<List<Model>>(_modelDal.GetAll().Where(c => c.Daily_Price <= price).ToList());
+            return new SuccessDataResult<List<Model>>(_modelDal.GetAll().Where(c => c.DailyPrice <= price).ToList());
         }
         public IDataResult<List<ModelDetailDto>> GetModelDetails()
         {

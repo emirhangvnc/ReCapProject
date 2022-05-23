@@ -1,5 +1,7 @@
 ﻿
 
+using Core.Entities.Concrete;
+
 namespace Business.Constants
 {
     public static class Messages
@@ -62,5 +64,11 @@ namespace Business.Constants
         public static string UserListed = "Üyeler Listelendi";
 
         public static string MaintenanceTime="Server Kapalı";
+        public static string UserRegistered = "Üye Kayıtı Başarılı";
+        public static string SuccessfulLogin = "Üye Giriş Başarılı";
+        public static string UserNotFound = "Kullanıcı Bulunamadı";
+        public static string PasswordError = "Parola Hatası";
+        public static string UserAlreadyExists = "Kullanıcı Mevcut";
+        public static string AccessTokenCreated = "Token oluşturuldu";
     }
 }

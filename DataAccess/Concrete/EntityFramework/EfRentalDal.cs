@@ -19,35 +19,35 @@ namespace DataAccess.Concrete.EntityFramework
             {
                 var result = from r in context.Rentals
                              join m in context.Models
-                             on r.Model_Id equals m.Model_Id
+                             on r.ModelId equals m.ModelId
                              
                              join c in context.Customers
-                             on r.Customer_Id equals c.Customer_Id
+                             on r.CustomerId equals c.CustomerId
 
                              join u in context.Users
-                             on c.User_Id equals u.Id
+                             on c.UserId equals u.Id
 
                              join ctd in context.CarTypeDetails
-                             on m.CarTypeDetail_Id equals ctd.CarTypeDetail_Id
+                             on m.CarTypeDetailId equals ctd.CarTypeDetailId
 
                              join cat in context.Categories
-                             on ctd.Category_Id equals cat.Category_Id
+                             on ctd.CategoryId equals cat.CategoryId
 
                              join f in context.FuelTypes
-                             on ctd.FuelType_Id equals f.FuelType_Id
+                             on ctd.FuelTypeId equals f.FuelTypeId
 
                              select new RentalDetailDto
                              {
-                                 RentalId = r.Rental_Id,
-                                 ModelName=m.Model_Name,
-                                 ModelYear=m.Model_Year,
+                                 RentalId = r.RentalId,
+                                 ModelName=m.ModelName,
+                                 ModelYear=m.ModelYear,
                                  CustomerFirstName=u.FirstName,
                                  CustomerLastName=u.LastName,
-                                 DailyPrice=m.Daily_Price,
+                                 DailyPrice=m.DailyPrice,
                                  RentDate=r.RentDate,
                                  ReturnDate=r.ReturnDate,
-                                 CategoryName=cat.Category_Name,
-                                 FuelTypeName=f.FuelType_Name
+                                 CategoryName=cat.CategoryName,
+                                 FuelTypeName=f.FuelTypeName
                              };
                 return result.ToList();
             }

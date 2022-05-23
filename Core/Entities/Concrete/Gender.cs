@@ -6,7 +6,7 @@ namespace Core.Entities.Concrete
     public class Gender : IEntity
     {
         [Key]
-        public int Gender_Id { get; set; }
-        public string Gender_Name { get; set; }
+        public int GenderId { get; set; }
+        public string GenderName { get; set; }
     }
 }

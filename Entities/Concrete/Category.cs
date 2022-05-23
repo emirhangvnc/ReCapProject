@@ -6,7 +6,7 @@ namespace Entities.Concrete
     public class Category:IEntity
     {
         [Key]
-        public int Category_Id { get; set; }
-        public string Category_Name { get; set; }
+        public int CategoryId { get; set; }
+        public string CategoryName { get; set; }
     }
 }

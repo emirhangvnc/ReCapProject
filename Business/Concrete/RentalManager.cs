@@ -52,7 +52,7 @@ namespace Business.Concrete
 
         public IDataResult<Rental> GetByRentalId(int rentalId)
         {
-            return new SuccessDataResult<Rental>(_rentalDal.Get(r => r.Rental_Id == rentalId));
+            return new SuccessDataResult<Rental>(_rentalDal.Get(r => r.RentalId == rentalId));
         }
 
         public IDataResult<List<RentalDetailDto>> GetRentalDetails()

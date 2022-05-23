@@ -7,10 +7,10 @@ namespace Business.ValidationRules.FluentValidation
     {
         public CustomerValidator()
         {
-            RuleFor(c => c.Company_Name).MinimumLength(2).WithMessage("Müşteri İsmi En Az 2 Karakter Olmalıdır");
-            RuleFor(c => c.Company_Name).MaximumLength(40).WithMessage("Müşteri İsmi En Fazla 25 Karakter Olabilir");
-            RuleFor(c => c.Company_Name).NotEmpty();
-            RuleFor(c => c.User_Id).NotEmpty();
+            RuleFor(c => c.CompanyName).MinimumLength(2).WithMessage("Müşteri İsmi En Az 2 Karakter Olmalıdır");
+            RuleFor(c => c.CompanyName).MaximumLength(40).WithMessage("Müşteri İsmi En Fazla 25 Karakter Olabilir");
+            RuleFor(c => c.CompanyName).NotEmpty();
+            RuleFor(c => c.UserId).NotEmpty();
         }
     }
 }

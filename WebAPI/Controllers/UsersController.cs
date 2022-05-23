@@ -15,21 +15,10 @@ namespace WebAPI.Controllers
             _userService = userService;
         }
 
-        [HttpGet("getall")]
-        public IActionResult GetAll()
+        [HttpGet("getbymailid")]
+        public IActionResult GetByMail(string userId)
         {
-            var result = _userService.GetAll();
-            if (result.Success)
-            {
-                return Ok(result);
-            }
-            return BadRequest(result);
-        }
-
-        [HttpGet("getbyid")]
-        public IActionResult GetById(int userId)
-        {
-            var result = _userService.GetUserId(userId);
+            var result = _userService.GetByMail(userId);
             if (result.Success)
             {
                 return Ok(result);

@@ -7,8 +7,8 @@ namespace Business.ValidationRules.FluentValidation
     {
         public CarTypeDetailValidator()
         {
-            RuleFor(f => f.Category_Id).NotEmpty();
-            RuleFor(f => f.FuelType_Id).NotEmpty();
+            RuleFor(f => f.CategoryId).NotEmpty();
+            RuleFor(f => f.FuelTypeId).NotEmpty();
         }
     }
 }

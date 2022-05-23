@@ -7,8 +7,8 @@ namespace Business.ValidationRules.FluentValidation
     {
         public CategoryValidator()
         {
-            RuleFor(f => f.Category_Name).MaximumLength(25).WithMessage("Categori İsmi En Fazla 25 Karakter Olabilir");
-            RuleFor(f => f.Category_Name).NotEmpty();
+            RuleFor(f => f.CategoryName).MaximumLength(25).WithMessage("Categori İsmi En Fazla 25 Karakter Olabilir");
+            RuleFor(f => f.CategoryName).NotEmpty();
         }
     }
 }

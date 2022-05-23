@@ -45,7 +45,7 @@ namespace Business.Concrete
 
         public IDataResult<Gender> GetGenderId(int genderId)
         {
-            return new SuccessDataResult<Gender>(_genderDal.Get(g => g.Gender_Id == genderId));
+            return new SuccessDataResult<Gender>(_genderDal.Get(g => g.GenderId == genderId));
         }
 
     }

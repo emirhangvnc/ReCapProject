@@ -19,20 +19,20 @@ namespace DataAccess.Concrete.EntityFramework
             {
                 var result = from c in context.Customers
                              join u in context.Users
-                             on c.User_Id equals u.Id
+                             on c.UserId equals u.Id
 
                              join g in context.Genders
-                             on u.GenderId equals g.Gender_Id
+                             on u.GenderId equals g.GenderId
                             
                              select new CustomerDetailDto
                              {
-                              Customer_Id=c.Customer_Id,
-                              CompanyName=c.Company_Name,
+                              Customer_Id=c.CustomerId,
+                              CompanyName=c.CompanyName,
                               FirstName=u.FirstName,
                               LastName=u.LastName,
-                              GenderName=g.Gender_Name,
+                              GenderName=g.GenderName,
                              };
-                return result.ToList();
+                 return result.ToList();
             }
         }
     }
