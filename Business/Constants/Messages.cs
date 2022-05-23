@@ -1,12 +1,8 @@
 ﻿
-
-using Core.Entities.Concrete;
-
 namespace Business.Constants
 {
     public static class Messages
     {
-
         public static string BrandAdded = "Marka Eklendi";
         public static string BrandDeleted = "Marka Silindi";
         public static string BrandUpdated = "Marka Güncellendi";
@@ -70,5 +66,6 @@ namespace Business.Constants
         public static string PasswordError = "Parola Hatası";
         public static string UserAlreadyExists = "Kullanıcı Mevcut";
         public static string AccessTokenCreated = "Token oluşturuldu";
+        public static string AuthorizationDenied = "Yetkiniz yok.";
     }
 }

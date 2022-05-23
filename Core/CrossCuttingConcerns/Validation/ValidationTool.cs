@@ -12,7 +12,6 @@ namespace Core.CrossCuttingConcerns.Validation
             {
                 throw new ValidationException(result.Errors);
             }
-
         }
     }
 }

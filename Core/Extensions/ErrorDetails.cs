@@ -1,5 +1,4 @@
 ﻿
-
 namespace Core.Extensions
 {
     using Newtonsoft.Json;

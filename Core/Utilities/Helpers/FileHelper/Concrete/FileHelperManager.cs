@@ -1,6 +1,4 @@
 ﻿using Core.Utilities.Helpers.FileHelper.Abstract;
-using Core.Utilities.Results.Abstract;
-using Core.Utilities.Results.Concrete;
 using Microsoft.AspNetCore.Http;
 using System.IO;
 

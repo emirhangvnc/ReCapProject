@@ -17,7 +17,6 @@ namespace ConsoleUI
     {
         static void Main(string[] args)
         {
-            ITokenHelper tokenHelper;
             ModelManager modelManager = new ModelManager(new EfModelDal());
             BrandManager brandManager = new BrandManager(new EfBrandDal());
             CustomerManager customerManager = new CustomerManager(new EfCustomerDal());
