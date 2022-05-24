@@ -1,4 +1,5 @@
 ﻿using Business.Abstract;
+using Business.BusinessAspects.Autofac;
 using Business.Constants;
 using Business.ValidationRules.FluentValidation;
 using Core.Aspects.Autofac.Validation;
@@ -20,6 +21,7 @@ namespace Business.Concrete
 
         #region Void işlemleri
 
+        [SecuredOperation("admin,moderator")]
         [ValidationAspect(typeof(CategoryValidator))]
         public IResult Add(Category category)
         {
@@ -27,12 +29,14 @@ namespace Business.Concrete
             return new SuccessResult(Messages.CategoryAdded);
         }
 
+        [SecuredOperation("admin,moderator")]
         public IResult Delete(Category category)
         {
             _categoryDal.Delete(category);
             return new SuccessResult(Messages.CategoryDeleted);
         }
 
+        [SecuredOperation("admin,moderator")]
         public IResult Update(Category category)
         {
             _categoryDal.Update(category);

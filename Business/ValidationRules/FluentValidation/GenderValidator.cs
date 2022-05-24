@@ -1,4 +1,5 @@
-﻿using Core.Entities.Concrete;
+﻿using Business.Constants;
+using Core.Entities.Concrete;
 using FluentValidation;
 
 namespace Business.ValidationRules.FluentValidation
@@ -7,9 +8,9 @@ namespace Business.ValidationRules.FluentValidation
     {
         public GenderValidator()
         {
-            RuleFor(g => g.GenderName).MinimumLength(2).WithMessage("Cinsiyet En Az 2 Karakter Olmalıdır");
-            RuleFor(g => g.GenderName).MaximumLength(15).WithMessage("Cinsiyet En Fazla 15 Karakter Olabilir");
-            RuleFor(g => g.GenderName).NotEmpty();
+            RuleFor(g => g.GenderName).MinimumLength(2).WithMessage($"Cinsiyet İsmi {Messages.Min2Caracter}");
+            RuleFor(g => g.GenderName).MaximumLength(30).WithMessage($"Cinsiyet İsmi {Messages.Max30Caracter}");
+            RuleFor(g => g.GenderName).NotEmpty().WithMessage($"Cinsiyet İsmi {Messages.NotEmpty}");
         }
     }
 }

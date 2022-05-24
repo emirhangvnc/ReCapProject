@@ -66,6 +66,15 @@ namespace Business.Constants
         public static string PasswordError = "Parola Hatası";
         public static string UserAlreadyExists = "Kullanıcı Mevcut";
         public static string AccessTokenCreated = "Token oluşturuldu";
-        public static string AuthorizationDenied = "Yetkiniz yok.";
+        public static string AuthorizationDenied = "Yetkiniz yok";
+
+        public static string Max50Caracter = "En Fazla 50 Karakter Olabilir";
+        public static string Max30Caracter = "En Fazla 30 Karakter Olabilir";
+        public static string Max20Caracter = "En Fazla 20 Karakter Olabilir";
+
+        public static string Min2Caracter = "En Az 2 Karakter Olmalıdır";
+
+        public static string NotEmpty = "Alanı Boş Bırakılamaz";
+
     }
 }

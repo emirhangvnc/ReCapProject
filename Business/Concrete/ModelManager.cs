@@ -1,6 +1,8 @@
 ﻿using Business.Abstract;
+using Business.BusinessAspects.Autofac;
 using Business.Constants;
 using Business.ValidationRules.FluentValidation;
+using Core.Aspects.Autofac.Caching;
 using Core.Aspects.Autofac.Validation;
 using Core.Utilities.Results.Abstract;
 using Core.Utilities.Results.Concrete;
@@ -13,9 +15,9 @@ using System.Linq;
 
 namespace Business.Concrete
 {
-    public class ModelManager:IModelService
+    public class ModelManager : IModelService
     {
-        IModelDal _modelDal;  
+        IModelDal _modelDal;
         public ModelManager(IModelDal modelDal)
         {
             _modelDal = modelDal;
@@ -23,22 +25,30 @@ namespace Business.Concrete
 
         #region Void işlemleri
 
+        [SecuredOperation("admin,moderator")]
         [ValidationAspect(typeof(ModelValidator))]
+        [CacheRemoveAspect("IModelService.Get")]
         public IResult Add(Model model)
         {
-             _modelDal.Add(model);
+            _modelDal.Add(model);
             return new SuccessResult(Messages.ModelAdded);
         }
+
+        [SecuredOperation("admin,moderator")]
+        [CacheRemoveAspect("IModelService.Get")]
         public IResult Delete(Model model)
         {
             _modelDal.Delete(model);
             return new SuccessResult(Messages.ModelDeleted);
         }
+
+        [SecuredOperation("admin,moderator")]
+        [CacheRemoveAspect("IModelService.Get")]
         public IResult Update(Model model)
         {
             _modelDal.Update(model);
             return new SuccessResult(Messages.ModelUpdated);
-        }     
+        }
         #endregion
 
         public IDataResult<Model> GetByModelId(int modelId)
@@ -46,6 +56,7 @@ namespace Business.Concrete
             return new SuccessDataResult<Model>(_modelDal.Get(m => m.ModelId == modelId));
         }
 
+        [CacheAspect]
         public IDataResult<List<Model>> GetAll()
         {
             if (DateTime.Now.Hour == 10)
@@ -80,6 +91,8 @@ namespace Business.Concrete
         {
             return new SuccessDataResult<List<Model>>(_modelDal.GetAll().Where(c => c.DailyPrice <= price).ToList());
         }
+
+        [CacheAspect]
         public IDataResult<List<ModelDetailDto>> GetModelDetails()
         {
             return new SuccessDataResult<List<ModelDetailDto>>(_modelDal.GetModelDetails());

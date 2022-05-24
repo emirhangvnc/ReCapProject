@@ -1,4 +1,5 @@
 ﻿using Business.Abstract;
+using Business.BusinessAspects.Autofac;
 using Business.Constants;
 using Business.ValidationRules.FluentValidation;
 using Core.Aspects.Autofac.Validation;
@@ -27,11 +28,13 @@ namespace Business.Concrete
             _customerDal.Add(customer);
             return new SuccessResult(Messages.CustomerAdded);
         }
+
         public IResult Update(Customer customer)
         {
             _customerDal.Update(customer);
             return new SuccessResult(Messages.CustomerUpdated);
         }
+
         public IResult Delete(Customer customer)
         {
             _customerDal.Delete(customer);

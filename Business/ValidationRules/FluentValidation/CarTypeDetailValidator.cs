@@ -1,4 +1,5 @@
-﻿using Entities.Concrete;
+﻿using Business.Constants;
+using Entities.Concrete;
 using FluentValidation;
 
 namespace Business.ValidationRules.FluentValidation
@@ -7,8 +8,8 @@ namespace Business.ValidationRules.FluentValidation
     {
         public CarTypeDetailValidator()
         {
-            RuleFor(f => f.CategoryId).NotEmpty();
-            RuleFor(f => f.FuelTypeId).NotEmpty();
+            RuleFor(f => f.CategoryId).NotEmpty().WithMessage($"Categori {Messages.NotEmpty}");
+            RuleFor(f => f.FuelTypeId).NotEmpty().WithMessage($"Yakıt Tip {Messages.NotEmpty}");
         }
     }
 }

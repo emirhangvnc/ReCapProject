@@ -1,4 +1,5 @@
-﻿using Entities.Concrete;
+﻿using Business.Constants;
+using Entities.Concrete;
 using FluentValidation;
 
 namespace Business.ValidationRules.FluentValidation
@@ -9,7 +10,7 @@ namespace Business.ValidationRules.FluentValidation
         {
             RuleFor(r => r.RentDate.Date).NotEmpty().WithMessage("Tarih Giriniz");
             RuleFor(r => r.CustomerId).NotEmpty().WithMessage("Müşteri Giriniz");
-            RuleFor(r => r.ModelId).NotEmpty().WithMessage("Model Giriniz");
+            RuleFor(r => r.ModelId).NotEmpty().WithMessage($"Model {Messages.NotEmpty}");
         }
     }
 }

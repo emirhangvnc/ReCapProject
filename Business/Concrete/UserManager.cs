@@ -6,6 +6,9 @@ using System.Linq;
 using Core.Utilities.Results.Concrete;
 using DataAccess.Abstract;
 using System.Collections.Generic;
+using Core.Aspects.Autofac.Validation;
+using Business.ValidationRules.FluentValidation;
+using Business.BusinessAspects.Autofac;
 
 namespace Business.Concrete
 {
@@ -18,18 +21,22 @@ namespace Business.Concrete
             _userDal = userDal;
         }
 
+        [SecuredOperation("admin,moderator")]
+        [ValidationAspect(typeof(UserValidator))]
         public IResult Add(User user)
         {
             _userDal.Add(user);
             return new SuccessResult(Messages.UserAdded);
         }
 
+        [SecuredOperation("admin,moderator")]
         public IResult Delete(User user)
         {
             _userDal.Delete(user);
             return new SuccessResult(Messages.UserDeleted);
         }
 
+        [SecuredOperation("admin,moderator")]
         public IResult Update(User user)
         {
             _userDal.Update(user);

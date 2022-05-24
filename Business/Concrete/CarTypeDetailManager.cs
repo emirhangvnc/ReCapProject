@@ -1,4 +1,5 @@
 ﻿using Business.Abstract;
+using Business.BusinessAspects.Autofac;
 using Business.Constants;
 using Business.ValidationRules.FluentValidation;
 using Core.Aspects.Autofac.Validation;
@@ -20,6 +21,7 @@ namespace Business.Concrete
 
         #region Void işlemleri
 
+        [SecuredOperation("admin,moderator")]
         [ValidationAspect(typeof(CarTypeDetailValidator))]
         public IResult Add(CarTypeDetail carTypeDetail)
         {
@@ -27,12 +29,14 @@ namespace Business.Concrete
             return new SuccessResult(Messages.CarTypeDetailAdded);
         }
 
+        [SecuredOperation("admin,moderator")]
         public IResult Delete(CarTypeDetail carTypeDetail)
         {
             _carTypeDetailDal.Delete(carTypeDetail);
             return new SuccessResult(Messages.CarTypeDetailDeleted);
         }
 
+        [SecuredOperation("admin,moderator")]
         public IResult Update(CarTypeDetail carTypeDetail)
         {
             _carTypeDetailDal.Update(carTypeDetail);

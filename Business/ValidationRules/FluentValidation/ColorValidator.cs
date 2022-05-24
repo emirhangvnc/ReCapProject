@@ -1,4 +1,5 @@
-﻿using Entities.Concrete;
+﻿using Business.Constants;
+using Entities.Concrete;
 using FluentValidation;
 
 namespace Business.ValidationRules.FluentValidation
@@ -7,9 +8,9 @@ namespace Business.ValidationRules.FluentValidation
     {
         public ColorValidator()
         {
-            RuleFor(f => f.ColorName).MinimumLength(2).WithMessage("Yakıt Türü En Az 2 Karakter Olmalıdır");
-            RuleFor(f => f.ColorName).MaximumLength(25).WithMessage("Yakıt Türü En Fazla 25 Karakter Olabilir");
-            RuleFor(f => f.ColorName).NotEmpty();
+            RuleFor(f => f.ColorName).MinimumLength(2).WithMessage($"Renk İsim {Messages.Min2Caracter}");
+            RuleFor(f => f.ColorName).MaximumLength(30).WithMessage($"Renk İsim {Messages.Max30Caracter}");
+            RuleFor(f => f.ColorName).NotEmpty().WithMessage($"Renk İsim{Messages.NotEmpty}");
         }
     }
 }

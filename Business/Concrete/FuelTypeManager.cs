@@ -1,4 +1,5 @@
 ﻿using Business.Abstract;
+using Business.BusinessAspects.Autofac;
 using Business.Constants;
 using Business.ValidationRules.FluentValidation;
 using Core.Aspects.Autofac.Validation;
@@ -20,17 +21,22 @@ namespace Business.Concrete
 
         #region Void işlemleri
 
+        [SecuredOperation("admin,moderator")]
         [ValidationAspect(typeof(FuelTypeValidator))]
         public IResult Add(FuelType fuelType)
         {
             _fuelTypeDal.Add(fuelType);
             return new SuccessResult(Messages.FuelTypeAdded);
         }
+
+        [SecuredOperation("admin,moderator")]
         public IResult Delete(FuelType fuelType)
         {
             _fuelTypeDal.Delete(fuelType);
             return new SuccessResult(Messages.FuelTypeDeleted);
         }
+
+        [SecuredOperation("admin,moderator")]
         public IResult Update(FuelType fuelType)
         {
             _fuelTypeDal.Update(fuelType);

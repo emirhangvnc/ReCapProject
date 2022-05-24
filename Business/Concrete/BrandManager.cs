@@ -21,7 +21,8 @@ namespace Business.Concrete
         }
 
         #region Void işlemleri
-        [SecuredOperation("admin")]
+
+        [SecuredOperation("admin,moderator,brand.add")]
         [ValidationAspect(typeof(BrandValidator))]
         [CacheRemoveAspect("IBrandService.Get")]
         public IResult Add(Brand brand)
@@ -30,7 +31,7 @@ namespace Business.Concrete
             return new SuccessResult(Messages.BrandAdded);
         }
 
-        [SecuredOperation("admin")]
+        [SecuredOperation("admin,moderator")]
         [CacheRemoveAspect("IBrandService.Get")]
         public IResult Delete(Brand brand)
         {
@@ -38,7 +39,7 @@ namespace Business.Concrete
             return new SuccessResult(Messages.BrandDeleted);
         }
 
-        [SecuredOperation("admin")]
+        [SecuredOperation("admin,moderator")]
         [CacheRemoveAspect("IBrandService.Get")]
         public IResult Update(Brand brand)
         {
