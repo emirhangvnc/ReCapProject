@@ -5,7 +5,6 @@ namespace Core.Entities.Concrete
 {
     public class User : IEntity
     {
-        [Key]
         public int Id { get; set; }
         public int GenderId { get; set; }
         public string FirstName { get; set; }

@@ -1,6 +1,7 @@
 ﻿using Business.Abstract;
 using Business.Constants;
 using Core.Entities.Concrete;
+using Core.Utilities.Business;
 using Core.Utilities.Results.Abstract;
 using Core.Utilities.Results.Concrete;
 using Core.Utilities.Security.Hashing;
@@ -27,8 +28,8 @@ namespace Business.Concrete
             var user = new User
             {
                 Email = userForRegisterDto.Email,
-                GenderId=userForRegisterDto.GenderId,
                 FirstName = userForRegisterDto.FirstName,
+                GenderId=userForRegisterDto.GenderId,
                 LastName = userForRegisterDto.LastName,
                 PasswordHash = passwordHash,
                 PasswordSalt = passwordSalt,
@@ -56,7 +57,8 @@ namespace Business.Concrete
 
         public IResult UserExists(string email)
         {
-            if (_userService.GetByMail(email) != null)
+            IResult result = BusinessRules.Run(CheckIfUserExist(email));
+            if (result != null)
             {
                 return new ErrorResult(Messages.UserAlreadyExists);
             }
@@ -68,6 +70,16 @@ namespace Business.Concrete
             var claims = _userService.GetClaims(user);
             var accessToken = _tokenHelper.CreateToken(user, claims.Data);
             return new SuccessDataResult<AccessToken>(accessToken, Messages.AccessTokenCreated);
+        }
+
+        private IResult CheckIfUserExist(string email)
+        {
+            var result = _userService.GetByMail(email).Data;
+            if (result != null)
+            {
+                return new ErrorResult();
+            }
+            return new SuccessResult();
         }
     }
 }
