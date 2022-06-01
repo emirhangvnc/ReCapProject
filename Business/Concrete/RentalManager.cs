@@ -22,7 +22,7 @@ namespace Business.Concrete
 
         #region Void işlemleri
 
-        [SecuredOperation("admin,moderator")]
+        //[SecuredOperation("admin,moderator")]
         [ValidationAspect(typeof(RentalValidator))]
         public IResult Add(Rental rental)
         {
@@ -30,14 +30,14 @@ namespace Business.Concrete
             return new SuccessResult(Messages.RentalAdded);
         }
 
-        [SecuredOperation("admin,moderator")]
+       // [SecuredOperation("admin,moderator")]
         public IResult Delete(Rental rental)
         {
             _rentalDal.Delete(rental);
             return new SuccessResult(Messages.RentalDeleted);
         }
 
-        [SecuredOperation("admin,moderator")]
+        //[SecuredOperation("admin,moderator")]
         public IResult Update(Rental rental)
         {
             _rentalDal.Update(rental);

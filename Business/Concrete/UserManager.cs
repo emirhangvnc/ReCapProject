@@ -21,7 +21,7 @@ namespace Business.Concrete
             _userDal = userDal;
         }
 
-        [SecuredOperation("admin,moderator")]
+      //  [SecuredOperation("admin,moderator")]
         [ValidationAspect(typeof(UserValidator))]
         public IResult Add(User user)
         {
@@ -29,14 +29,14 @@ namespace Business.Concrete
             return new SuccessResult(Messages.UserAdded);
         }
 
-        [SecuredOperation("admin,moderator")]
+       // [SecuredOperation("admin,moderator")]
         public IResult Delete(User user)
         {
             _userDal.Delete(user);
             return new SuccessResult(Messages.UserDeleted);
         }
 
-        [SecuredOperation("admin,moderator")]
+        //[SecuredOperation("admin,moderator")]
         public IResult Update(User user)
         {
             _userDal.Update(user);

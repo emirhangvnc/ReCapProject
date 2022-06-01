@@ -21,7 +21,7 @@ namespace Business.Concrete
 
         #region Void işlemleri
 
-        [SecuredOperation("admin,moderator")]
+        //[SecuredOperation("admin,moderator")]
         [ValidationAspect(typeof(CarTypeDetailValidator))]
         public IResult Add(CarTypeDetail carTypeDetail)
         {
@@ -29,14 +29,14 @@ namespace Business.Concrete
             return new SuccessResult(Messages.CarTypeDetailAdded);
         }
 
-        [SecuredOperation("admin,moderator")]
+        //[SecuredOperation("admin,moderator")]
         public IResult Delete(CarTypeDetail carTypeDetail)
         {
             _carTypeDetailDal.Delete(carTypeDetail);
             return new SuccessResult(Messages.CarTypeDetailDeleted);
         }
 
-        [SecuredOperation("admin,moderator")]
+        //[SecuredOperation("admin,moderator")]
         public IResult Update(CarTypeDetail carTypeDetail)
         {
             _carTypeDetailDal.Update(carTypeDetail);

@@ -1,5 +1,6 @@
 ﻿using Core.Utilities.Results.Abstract;
 using Entities.Concrete;
+using Entities.DTOs.BrandDto;
 using System.Collections.Generic;
 
 namespace Business.Abstract
@@ -10,8 +11,8 @@ namespace Business.Abstract
 
         IDataResult<Brand> GetBrandId(int brandId);
 
-        IResult Add(Brand brand);
-        IResult Update(Brand brand);
-        IResult Delete(Brand brand);
+        IResult Add(BrandAddDto brand);
+        IResult Update(BrandUpdateDto brandUpdateDto);
+        IResult Delete(BrandDeleteDto brandDeleteDto);
     }
 }

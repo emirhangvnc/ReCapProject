@@ -21,7 +21,7 @@ namespace Business.Concrete
 
         #region Void işlemleri
 
-        [SecuredOperation("admin,moderator")]
+        //[SecuredOperation("admin,moderator")]
         [ValidationAspect(typeof(GenderValidator))]
         public IResult Add(Gender gender)
         {
@@ -29,14 +29,14 @@ namespace Business.Concrete
             return new SuccessResult(Messages.GenderAdded);
         }
 
-        [SecuredOperation("admin,moderator")]
+        //[SecuredOperation("admin,moderator")]
         public IResult Delete(Gender gender)
         {
             _genderDal.Delete(gender);
             return new SuccessResult(Messages.GenderDeleted);
         }
 
-        [SecuredOperation("admin,moderator")]
+        //[SecuredOperation("admin,moderator")]
         public IResult Update(Gender gender)
         {
             _genderDal.Update(gender);

@@ -15,7 +15,8 @@ namespace WebAPI.Controllers
             _fuelTypeService = fuelTypeService;
         }
 
-        [HttpGet("getall")]
+        [HttpGet]
+        [Route("[action]")]
         public IActionResult GetAll()
         {
             var result = _fuelTypeService.GetAll();
@@ -26,7 +27,8 @@ namespace WebAPI.Controllers
             return BadRequest(result);
         }
 
-        [HttpGet("getbyid")]
+        [HttpGet]
+        [Route("[action]")]
         public IActionResult GetById(int fuelTypeId)
         {
             var result = _fuelTypeService.GetFuelTypeId(fuelTypeId);
@@ -37,7 +39,8 @@ namespace WebAPI.Controllers
             return BadRequest(result);
         }
 
-        [HttpPost("add")]
+        [HttpPost]
+        [Route("[action]")]
         public IActionResult Add(FuelType fuelType)
         {
             var result = _fuelTypeService.Add(fuelType);
@@ -48,7 +51,8 @@ namespace WebAPI.Controllers
             return BadRequest(result);
         }
 
-        [HttpPost("delete")]
+        [HttpPost]
+        [Route("[action]")]
         public IActionResult Delete(FuelType fuelType)
         {
             var result = _fuelTypeService.Delete(fuelType);
@@ -59,7 +63,8 @@ namespace WebAPI.Controllers
             return BadRequest(result);
         }
 
-        [HttpPost("update")]
+        [HttpPost]
+        [Route("[action]")]
         public IActionResult Update(FuelType fuelType)
         {
             var result = _fuelTypeService.Update(fuelType);

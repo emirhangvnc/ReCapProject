@@ -1,5 +1,6 @@
 using Core.DependencyResolvers;
 using Core.Extensions;
+using Business.AutoMapper.Profiles;
 using Core.Utilities.IoC;
 using Core.Utilities.Security.Encryption;
 using Core.Utilities.Security.Jwt;
@@ -26,11 +27,8 @@ namespace WebAPI
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddControllers();
-
             services.AddCors();
-
             var tokenOptions = Configuration.GetSection("TokenOptions").Get<TokenOptions>();
-
             services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
                 .AddJwtBearer(options =>
                 {
@@ -49,6 +47,7 @@ namespace WebAPI
             services.AddDependencyResolvers(new ICoreModule[] {
                new CoreModule()
             });
+            services.AddAutoMapper(typeof(BrandProfile));
 
             services.AddSwaggerGen(c =>
             {
@@ -68,13 +67,13 @@ namespace WebAPI
                 });
             }
 
-            app.UseCors(builder => builder.WithOrigins("http://localhost:4200").AllowAnyHeader());
+            //app.UseCors(builder => builder.WithOrigins("http://localhost:4201").AllowAnyHeader());
 
-            app.ConfigureCustomExceptionMiddleware();
+            //app.ConfigureCustomExceptionMiddleware();
 
             app.UseHttpsRedirection();
 
-            app.UseStaticFiles();
+            //app.UseStaticFiles();
 
             app.UseRouting();
 

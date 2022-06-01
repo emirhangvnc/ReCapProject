@@ -15,7 +15,8 @@ namespace WebAPI.Controllers
             _genderService = genderService;
         }
 
-        [HttpGet("getall")]
+        [HttpGet]
+        [Route("[action]")]
         public IActionResult GetAll()
         {
             var result = _genderService.GetAll();
@@ -26,7 +27,8 @@ namespace WebAPI.Controllers
             return BadRequest(result);
         }
 
-        [HttpGet("getbyid")]
+        [HttpGet]
+        [Route("[action]")]
         public IActionResult GetById(int genderId)
         {
             var result = _genderService.GetGenderId(genderId);
@@ -37,7 +39,8 @@ namespace WebAPI.Controllers
             return BadRequest(result);
         }
 
-        [HttpPost("add")]
+        [HttpPost]
+        [Route("[action]")]
         public IActionResult Add(Gender gender)
         {
             var result = _genderService.Add(gender);
@@ -48,7 +51,8 @@ namespace WebAPI.Controllers
             return BadRequest(result);
         }
 
-        [HttpPost("delete")]
+        [HttpPost]
+        [Route("[action]")]
         public IActionResult Delete(Gender gender)
         {
             var result = _genderService.Delete(gender);
@@ -59,7 +63,8 @@ namespace WebAPI.Controllers
             return BadRequest(result);
         }
 
-        [HttpPost("update")]
+        [HttpPost]
+        [Route("[action]")]
         public IActionResult Update(Gender gender)
         {
             var result = _genderService.Update(gender);

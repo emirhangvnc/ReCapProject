@@ -15,7 +15,8 @@ namespace WebAPI.Controllers
             _userService = userService;
         }
 
-        [HttpGet("getbymailid")]
+        [HttpGet]
+        [Route("[action]")]
         public IActionResult GetByMail(string userId)
         {
             var result = _userService.GetByMail(userId);
@@ -26,7 +27,8 @@ namespace WebAPI.Controllers
             return BadRequest(result);
         }
 
-        [HttpPost("add")]
+        [HttpPost]
+        [Route("[action]")]
         public IActionResult Add(User user)
         {
             var result = _userService.Add(user);
@@ -37,7 +39,8 @@ namespace WebAPI.Controllers
             return BadRequest(result);
         }
 
-        [HttpPost("delete")]
+        [HttpPost]
+        [Route("[action]")]
         public IActionResult Delete(User user)
         {
             var result = _userService.Delete(user);
@@ -48,7 +51,8 @@ namespace WebAPI.Controllers
             return BadRequest(result);
         }
 
-        [HttpPost("update")]
+        [HttpPost]
+        [Route("[action]")]
         public IActionResult Update(User user)
         {
             var result = _userService.Update(user);

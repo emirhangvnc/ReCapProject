@@ -8,6 +8,7 @@ namespace Business.Abstract
     public interface ICarImageService
     {
         IDataResult<List<CarImage>> GetAll();
+        IDataResult<List<CarImage>> GetImagesByCarId(int Id);
         IDataResult<CarImage> GetByImageId(int imageId);
 
         IResult Add(IFormFile formFile, CarImage carImage);

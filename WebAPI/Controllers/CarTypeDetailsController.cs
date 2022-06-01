@@ -15,7 +15,8 @@ namespace WebAPI.Controllers
             _carTypeDetailService = carTypeDetailService;
         }
 
-        [HttpGet("getall")]
+        [HttpGet]
+        [Route("[action]")]
         public IActionResult GetAll()
         {
             var result = _carTypeDetailService.GetAll();
@@ -26,7 +27,8 @@ namespace WebAPI.Controllers
             return BadRequest(result);
         }
 
-        [HttpGet("getbyid")]
+        [HttpGet]
+        [Route("[action]")]
         public IActionResult GetById(int carTypeDetailId)
         {
             var result = _carTypeDetailService.GetCarTypeDetailId(carTypeDetailId);
@@ -37,7 +39,8 @@ namespace WebAPI.Controllers
             return BadRequest(result);
         }
 
-        [HttpPost("add")]
+        [HttpPost]
+        [Route("[action]")]
         public IActionResult Add(CarTypeDetail carTypeDetail)
         {
             var result = _carTypeDetailService.Add(carTypeDetail);
@@ -48,7 +51,8 @@ namespace WebAPI.Controllers
             return BadRequest(result);
         }
 
-        [HttpPost("delete")]
+        [HttpPost]
+        [Route("[action]")]
         public IActionResult Delete(CarTypeDetail carTypeDetail)
         {
             var result = _carTypeDetailService.Delete(carTypeDetail);
@@ -59,7 +63,8 @@ namespace WebAPI.Controllers
             return BadRequest(result);
         }
 
-        [HttpPost("update")]
+        [HttpPost]
+        [Route("[action]")]
         public IActionResult Update(CarTypeDetail carTypeDetail)
         {
             var result = _carTypeDetailService.Update(carTypeDetail);

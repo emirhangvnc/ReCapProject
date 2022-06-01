@@ -25,7 +25,7 @@ namespace Business.Concrete
 
         #region Void işlemleri
 
-        [SecuredOperation("admin,moderator")]
+        //[SecuredOperation("admin,moderator")]
         [ValidationAspect(typeof(ModelValidator))]
         [CacheRemoveAspect("IModelService.Get")]
         public IResult Add(Model model)
@@ -34,7 +34,7 @@ namespace Business.Concrete
             return new SuccessResult(Messages.ModelAdded);
         }
 
-        [SecuredOperation("admin,moderator")]
+        //[SecuredOperation("admin,moderator")]
         [CacheRemoveAspect("IModelService.Get")]
         public IResult Delete(Model model)
         {
@@ -42,7 +42,7 @@ namespace Business.Concrete
             return new SuccessResult(Messages.ModelDeleted);
         }
 
-        [SecuredOperation("admin,moderator")]
+        //[SecuredOperation("admin,moderator")]
         [CacheRemoveAspect("IModelService.Get")]
         public IResult Update(Model model)
         {
@@ -59,11 +59,6 @@ namespace Business.Concrete
         [CacheAspect]
         public IDataResult<List<Model>> GetAll()
         {
-            if (DateTime.Now.Hour == 10)
-            {
-                return new ErrorDataResult<List<Model>>(Messages.MaintenanceTime);
-            }
-
             return new SuccessDataResult<List<Model>>(_modelDal.GetAll(), Messages.ModelsListed);
         }
         public IDataResult<List<Model>> GetByBrandId(int brandId)

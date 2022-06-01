@@ -75,6 +75,7 @@ namespace Business.Constants
         public static string Min2Caracter = "En Az 2 Karakter Olmalıdır";
 
         public static string NotEmpty = "Alanı Boş Bırakılamaz";
-
+        public static string CarImageMustBeExists= "Araba Resmi Ekleyiniz";
+        public static string CarImageNotFound="Araç Resmi Bulunamadı";
     }
 }

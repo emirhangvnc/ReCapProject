@@ -21,7 +21,7 @@ namespace Business.Concrete
 
         #region Void işlemleri
 
-        [SecuredOperation("admin,moderator")]
+        //[SecuredOperation("admin,moderator")]
         [ValidationAspect(typeof(FuelTypeValidator))]
         public IResult Add(FuelType fuelType)
         {
@@ -29,14 +29,14 @@ namespace Business.Concrete
             return new SuccessResult(Messages.FuelTypeAdded);
         }
 
-        [SecuredOperation("admin,moderator")]
+        //[SecuredOperation("admin,moderator")]
         public IResult Delete(FuelType fuelType)
         {
             _fuelTypeDal.Delete(fuelType);
             return new SuccessResult(Messages.FuelTypeDeleted);
         }
 
-        [SecuredOperation("admin,moderator")]
+       // [SecuredOperation("admin,moderator")]
         public IResult Update(FuelType fuelType)
         {
             _fuelTypeDal.Update(fuelType);

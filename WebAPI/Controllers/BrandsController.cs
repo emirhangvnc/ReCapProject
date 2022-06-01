@@ -1,5 +1,6 @@
 ﻿using Business.Abstract;
 using Entities.Concrete;
+using Entities.DTOs.BrandDto;
 using Microsoft.AspNetCore.Mvc;
 
 namespace WebAPI.Controllers
@@ -15,7 +16,8 @@ namespace WebAPI.Controllers
             _brandService = brandService;
         }
 
-        [HttpGet("getall")]
+        [HttpGet]
+        [Route("[action]")]
         public IActionResult GetAll()
         {
             var result = _brandService.GetAll();
@@ -26,7 +28,8 @@ namespace WebAPI.Controllers
             return BadRequest(result);
         }
 
-        [HttpGet("getbyid")]
+        [HttpGet]
+        [Route("[action]")]
         public IActionResult GetById(int brandId)
         {
             var result = _brandService.GetBrandId(brandId);
@@ -37,8 +40,9 @@ namespace WebAPI.Controllers
             return BadRequest(result);
         }
 
-        [HttpPost("add")]
-        public IActionResult Add(Brand brand)
+        [HttpPost]
+        [Route("[action]")]
+        public IActionResult Add(BrandAddDto brand)
         {
             var result = _brandService.Add(brand);
             if (result.Success)
@@ -48,8 +52,10 @@ namespace WebAPI.Controllers
             return BadRequest(result);
         }
 
-        [HttpPost("delete")]
-        public IActionResult Delete(Brand brand)
+        [HttpPost]
+        [Route("[action]")]
+
+        public IActionResult Delete(BrandDeleteDto brand)
         {
             var result = _brandService.Delete(brand);
             if (result.Success)
@@ -59,8 +65,9 @@ namespace WebAPI.Controllers
             return BadRequest(result);
         }
 
-        [HttpPost("update")]
-        public IActionResult Update(Brand brand)
+        [HttpPost]
+        [Route("[action]")]
+        public IActionResult Update(BrandUpdateDto brand)
         {
             var result = _brandService.Update(brand);
             if (result.Success)

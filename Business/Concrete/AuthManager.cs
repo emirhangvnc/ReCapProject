@@ -3,10 +3,10 @@ using Business.Constants;
 using Core.Entities.Concrete;
 using Core.Utilities.Business;
 using Core.Utilities.Results.Abstract;
+using Entities.DTOs.AuthDto;
 using Core.Utilities.Results.Concrete;
 using Core.Utilities.Security.Hashing;
 using Core.Utilities.Security.JWT;
-using Entities.DTOs;
 
 namespace Business.Concrete
 {
