@@ -18,9 +18,12 @@ namespace Business.Concrete
     public class BrandManager : IBrandService
     {
         IBrandDal _brandDal;
-        public BrandManager(IBrandDal brandDal)
+        IMapper _mapper;
+
+        public BrandManager(IBrandDal brandDal, IMapper mapper)
         {
             _brandDal = brandDal;
+            _mapper = mapper;
         }
 
         #region Void işlemleri
@@ -30,11 +33,11 @@ namespace Business.Concrete
         [CacheRemoveAspect("IBrandService.Get")]
         public IResult Add(BrandAddDto brandAddDto)
         {
-            Brand brand = new Brand
-            {
-                BrandName = brandAddDto.Name
-            };
+            var result = _brandDal.GetAll().SingleOrDefault(b => b.BrandName == brandAddDto.Name);
+            if (result!=null)
+                return new ErrorResult("Bu İsimde Marka Zaten Mevcut");
 
+           var brand =_mapper.Map<Brand>(brandAddDto);
             _brandDal.Add(brand);
             return new SuccessResult(Messages.BrandAdded);
         }
@@ -59,8 +62,9 @@ namespace Business.Concrete
             {
                 return new ErrorResult("Boyle Bir Marka Bulunmamaktadır");
             }
-            brand.BrandName = brandUpdateDto.Name;
-            _brandDal.Update(brand);
+            var newBrand = _mapper.Map(brandUpdateDto, brand);
+     
+            _brandDal.Update(newBrand);
             return new SuccessResult(Messages.BrandUpdated);
         }
         #endregion

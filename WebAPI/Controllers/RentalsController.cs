@@ -1,5 +1,6 @@
 ﻿using Business.Abstract;
 using Entities.Concrete;
+using Entities.DTOs.RentalDto;
 using Microsoft.AspNetCore.Mvc;
 
 namespace WebAPI.Controllers
@@ -29,9 +30,9 @@ namespace WebAPI.Controllers
 
         [HttpGet]
         [Route("[action]")]
-        public IActionResult GetById(int customerId)
+        public IActionResult GetById(int rentalId)
         {
-            var result = _rentalService.GetByRentalId(customerId);
+            var result = _rentalService.GetByRentalId(rentalId);
             if (result.Success)
             {
                 return Ok(result);
@@ -41,7 +42,7 @@ namespace WebAPI.Controllers
 
         [HttpPost]
         [Route("[action]")]
-        public IActionResult Add(Rental rental)
+        public IActionResult Add(RentalAddDto rental)
         {
             var result = _rentalService.Add(rental);
             if (result.Success)
@@ -53,7 +54,7 @@ namespace WebAPI.Controllers
 
         [HttpPost]
         [Route("[action]")]
-        public IActionResult Delete(Rental rental)
+        public IActionResult Delete(RentalDeleteDto rental)
         {
             var result = _rentalService.Delete(rental);
             if (result.Success)
@@ -65,7 +66,7 @@ namespace WebAPI.Controllers
 
         [HttpPost]
         [Route("[action]")]
-        public IActionResult Update(Rental rental)
+        public IActionResult Update(RentalUpdateDto rental)
         {
             var result = _rentalService.Update(rental);
             if (result.Success)

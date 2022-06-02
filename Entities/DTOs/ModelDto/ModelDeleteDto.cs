@@ -1,8 +1,8 @@
 ﻿using Core.Entities;
 
-namespace Entities.DTOs.BrandDto
+namespace Entities.DTOs.ModelDto
 {
-    public class BrandDeleteDto:IDto
+    public class ModelDeleteDto:IDto
     {
         public int Id { get; set; }
     }

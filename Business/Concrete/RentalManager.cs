@@ -5,49 +5,78 @@ using Business.ValidationRules.FluentValidation;
 using Core.Aspects.Autofac.Validation;
 using Core.Utilities.Results.Abstract;
 using Core.Utilities.Results.Concrete;
+using Entities.DTOs.RentalDto;
+using System;
+using AutoMapper;
 using DataAccess.Abstract;
 using Entities.Concrete;
-using Entities.DTOs;
 using System.Collections.Generic;
+using Business.ValidationRules.FluentValidation.RentalValidator;
 
 namespace Business.Concrete
 {
     public class RentalManager : IRentalService
     {
         IRentalDal _rentalDal;
-        public RentalManager(IRentalDal rentalDal)
+        IMapper _mapper;
+        public RentalManager(IRentalDal rentalDal, IMapper mapper)
         {
             _rentalDal = rentalDal;
+            _mapper = mapper;
         }
 
         #region Void işlemleri
 
         //[SecuredOperation("admin,moderator")]
-        [ValidationAspect(typeof(RentalValidator))]
-        public IResult Add(Rental rental)
+        [ValidationAspect(typeof(RentalAddDtoValidator))]
+        public IResult Add(RentalAddDto rentalAddDto)
         {
-            _rentalDal.Add(rental);
+            var result = _rentalDal.GetAll(r => r.ModelId == rentalAddDto.ModelId);
+            if (result != null)
+            {
+                foreach (var rental in result)
+                {
+                    if (rental.ReturnDate > DateTime.Now)
+                    {
+                        return new ErrorResult("Bu Arabanın Kiralık Süresi Dolmamıştır");
+                    }
+                }
+            }
+            var newRental = _mapper.Map<Rental>(rentalAddDto);
+            _rentalDal.Add(newRental);
             return new SuccessResult(Messages.RentalAdded);
         }
 
-       // [SecuredOperation("admin,moderator")]
-        public IResult Delete(Rental rental)
+        // [SecuredOperation("admin,moderator")]
+        [ValidationAspect(typeof(RentalDeleteDtoValidator))]
+        public IResult Delete(RentalDeleteDto rentalDeleteDto)
         {
-            _rentalDal.Delete(rental);
+            var result = _rentalDal.Get(r => r.RentalId == rentalDeleteDto.Id);
+            if (result == null)
+            {
+                return new ErrorResult("Böyle Bir Kiralama İşlemi Bulunamadı");
+            }
+            _rentalDal.Delete(result);
             return new SuccessResult(Messages.RentalDeleted);
         }
 
         //[SecuredOperation("admin,moderator")]
-        public IResult Update(Rental rental)
+        public IResult Update(RentalUpdateDto rentalUpdateDto)
         {
-            _rentalDal.Update(rental);
+            var result = _rentalDal.Get(r => r.RentalId == rentalUpdateDto.Id);
+            if (result == null)
+            {
+                return new ErrorResult("Böyle Bir Kiralık Araç Kayıdı Yok");
+            }
+            var newRental = _mapper.Map(rentalUpdateDto, result);
+            _rentalDal.Update(newRental);
             return new SuccessResult(Messages.RentalUpdated);
         }
         #endregion
 
         public IDataResult<List<Rental>> GetAll()
         {
-            return new SuccessDataResult<List<Rental>>(_rentalDal.GetAll(),Messages.RentalListed);
+            return new SuccessDataResult<List<Rental>>(_rentalDal.GetAll(), Messages.RentalListed);
         }
 
         public IDataResult<Rental> GetByRentalId(int rentalId)

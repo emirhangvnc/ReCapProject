@@ -1,5 +1,5 @@
 ﻿using Business.Abstract;
-using Entities.Concrete;
+using Entities.DTOs.ModelDto;
 using Microsoft.AspNetCore.Mvc;
 
 namespace WebAPI.Controllers
@@ -53,9 +53,9 @@ namespace WebAPI.Controllers
 
         [HttpPost]
         [Route("[action]")]
-        public IActionResult Add(Model model)
+        public IActionResult Add(ModelAddDto modelAddDto)
         {
-            var result = _modelService.Add(model);
+            var result = _modelService.Add(modelAddDto);
             if (result.Success)
             {
                 return Ok(result);
@@ -65,9 +65,9 @@ namespace WebAPI.Controllers
 
         [HttpPost]
         [Route("[action]")]
-        public IActionResult Delete(Model model)
+        public IActionResult Delete(ModelDeleteDto modelDeleteDto)
         {
-            var result = _modelService.Delete(model);
+            var result = _modelService.Delete(modelDeleteDto);
             if (result.Success)
             {
                 return Ok(result);
@@ -77,9 +77,9 @@ namespace WebAPI.Controllers
 
         [HttpPost]
         [Route("[action]")]
-        public IActionResult Update(Model model)
+        public IActionResult Update(ModelUpdateDto modelUpdateDto)
         {
-            var result = _modelService.Update(model);
+            var result = _modelService.Update(modelUpdateDto);
             if (result.Success)
             {
                 return Ok(result);

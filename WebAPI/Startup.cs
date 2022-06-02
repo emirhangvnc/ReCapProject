@@ -1,6 +1,6 @@
 using Core.DependencyResolvers;
 using Core.Extensions;
-using Business.AutoMapper.Profiles;
+using AutoMapper;
 using Core.Utilities.IoC;
 using Core.Utilities.Security.Encryption;
 using Core.Utilities.Security.Jwt;
@@ -12,6 +12,7 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.IdentityModel.Tokens;
 using Microsoft.OpenApi.Models;
+using Business.AutoMapper.Profiles;
 
 namespace WebAPI
 {
@@ -48,6 +49,7 @@ namespace WebAPI
                new CoreModule()
             });
             services.AddAutoMapper(typeof(BrandProfile));
+            services.AddAutoMapper(typeof(ModelProfile));
 
             services.AddSwaggerGen(c =>
             {

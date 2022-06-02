@@ -1,13 +1,9 @@
 ﻿using Core.Entities;
 using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
-namespace Entities.DTOs
+namespace Entities.DTOs.RentalDto
 {
-    public class RentalDetailDto:IDto
+    public class RentalDetailDto : IDto
     {
         public int RentalId { get; set; }
         public string ModelName { get; set; }

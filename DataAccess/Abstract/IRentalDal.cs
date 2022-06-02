@@ -1,6 +1,6 @@
 ﻿using Core.Entities;
 using Entities.Concrete;
-using Entities.DTOs;
+using Entities.DTOs.RentalDto;
 using System.Collections.Generic;
 
 namespace DataAccess.Abstract

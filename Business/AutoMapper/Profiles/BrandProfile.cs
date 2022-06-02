@@ -9,8 +9,13 @@ namespace Business.AutoMapper.Profiles
         public BrandProfile()
         {
             CreateMap<BrandAddDto,Brand>();
+            CreateMap<Brand,BrandAddDto>();
+
             CreateMap<BrandUpdateDto, Brand>();
+            CreateMap<Brand,BrandUpdateDto>();
+
             CreateMap<BrandDeleteDto, Brand>();
+            CreateMap<Brand,BrandDeleteDto>();
         }
     }
 }

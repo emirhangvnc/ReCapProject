@@ -1,6 +1,6 @@
 ﻿using Core.Utilities.Results.Abstract;
 using Entities.Concrete;
-using Entities.DTOs;
+using Entities.DTOs.ModelDto;
 using System.Collections.Generic;
 
 namespace Business.Abstract
@@ -19,8 +19,8 @@ namespace Business.Abstract
         IDataResult<List<Model>> GetByDailyPriceKucuktur(decimal price);
         IDataResult<List<ModelDetailDto>> GetModelDetails();
 
-        IResult Add(Model model);
-        IResult Delete(Model model);
-        IResult Update(Model model);
+        IResult Add(ModelAddDto modelAddDto);
+        IResult Delete(ModelDeleteDto modelDeleteDto);
+        IResult Update(ModelUpdateDto modelUpdateDto);
     }
 }

@@ -2,13 +2,15 @@
 using Business.BusinessAspects.Autofac;
 using Business.Constants;
 using Business.ValidationRules.FluentValidation;
+using Business.ValidationRules.FluentValidation.ModelValidator;
 using Core.Aspects.Autofac.Caching;
 using Core.Aspects.Autofac.Validation;
+using AutoMapper;
 using Core.Utilities.Results.Abstract;
 using Core.Utilities.Results.Concrete;
 using DataAccess.Abstract;
 using Entities.Concrete;
-using Entities.DTOs;
+using Entities.DTOs.ModelDto;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -18,34 +20,53 @@ namespace Business.Concrete
     public class ModelManager : IModelService
     {
         IModelDal _modelDal;
-        public ModelManager(IModelDal modelDal)
+        IMapper _mapper;
+        public ModelManager(IModelDal modelDal,IMapper mapper)
         {
             _modelDal = modelDal;
+            _mapper = mapper;
         }
 
         #region Void işlemleri
 
         //[SecuredOperation("admin,moderator")]
-        [ValidationAspect(typeof(ModelValidator))]
+        [ValidationAspect(typeof(ModelAddDtoValidator))]
         [CacheRemoveAspect("IModelService.Get")]
-        public IResult Add(Model model)
+        public IResult Add(ModelAddDto modelAddDto)
         {
+            var result = _modelDal.GetAll().SingleOrDefault(b => b.ModelName == modelAddDto.ModelName);
+            if (result != null)
+                return new ErrorResult("Bu İsimde Model İsmi Mevcut");
+
+            var model = _mapper.Map<Model>(modelAddDto);
             _modelDal.Add(model);
             return new SuccessResult(Messages.ModelAdded);
         }
 
         //[SecuredOperation("admin,moderator")]
+        [ValidationAspect(typeof(ModelDeleteDtoValidator))]
         [CacheRemoveAspect("IModelService.Get")]
-        public IResult Delete(Model model)
+        public IResult Delete(ModelDeleteDto modelDeleteDto)
         {
-            _modelDal.Delete(model);
-            return new SuccessResult(Messages.ModelDeleted);
+            var result = _modelDal.Get(m => m.ModelId == modelDeleteDto.Id);
+            if (result!=null)
+            {
+                _modelDal.Delete(result);
+                return new SuccessResult(Messages.ModelDeleted);
+            }
+            return new ErrorResult("Böyle Bir Model Bulunmamakta");
         }
 
         //[SecuredOperation("admin,moderator")]
+        [ValidationAspect(typeof(ModelUpdateDtoValidator))]
         [CacheRemoveAspect("IModelService.Get")]
-        public IResult Update(Model model)
+        public IResult Update(ModelUpdateDto modelUpdateDto)
         {
+            var result = _modelDal.Get(m => m.ModelId == modelUpdateDto.Id);
+            if (result==null)
+                return new ErrorResult("Bu Veride Bir Model Yok");
+
+            var model = _mapper.Map(modelUpdateDto, result);
             _modelDal.Update(model);
             return new SuccessResult(Messages.ModelUpdated);
         }
