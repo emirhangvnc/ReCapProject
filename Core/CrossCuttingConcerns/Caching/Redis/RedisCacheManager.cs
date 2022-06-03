@@ -12,6 +12,19 @@ namespace Core.CrossCuttingConcerns.Caching.Redis
             _redisEndpoint = new RedisEndpoint("localhost", 6379);
         }
 
+        private void RedisInvoker(Action<RedisClient> redisAction)
+        {
+            using (var client = new RedisClient(_redisEndpoint))
+            {
+                redisAction.Invoke(client);
+            }
+        }
+
+        public void Add(string key, object value, int duration)
+        {
+            RedisInvoker(x => x.Add(key, value, TimeSpan.FromMinutes(duration)));
+        }
+
         public T Get<T>(string key)
         {
             var result = default(T);
@@ -24,16 +37,6 @@ namespace Core.CrossCuttingConcerns.Caching.Redis
             var result = default(object);
             RedisInvoker(x => { result = x.Get<object>(key); });
             return result;
-        }
-
-        public void Add(string key, object data, int duration)
-        {
-            RedisInvoker(x => x.Add(key, data, TimeSpan.FromMinutes(duration)));
-        }
-
-        public void Add(string key, object data)
-        {
-            RedisInvoker(x => x.Add(key, data));
         }
 
         public bool IsAdd(string key)
@@ -51,19 +54,6 @@ namespace Core.CrossCuttingConcerns.Caching.Redis
         public void RemoveByPattern(string pattern)
         {
             RedisInvoker(x => x.RemoveByPattern(pattern));
-        }
-
-        public void Clear()
-        {
-            RedisInvoker(x => x.FlushAll());
-        }
-
-        private void RedisInvoker(Action<RedisClient> redisAction)
-        {
-            using (var client = new RedisClient(_redisEndpoint))
-            {
-                redisAction.Invoke(client);
-            }
         }
     }
 }

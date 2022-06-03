@@ -1,12 +1,22 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using AutoMapper;
+using Entities.DTOs.CustomerDto;
+using Entities.Concrete;
+
 
 namespace Business.AutoMapper.Profiles
 {
-    internal class CustomerProfile
+    public class CustomerProfile : Profile
     {
+        public CustomerProfile()
+        {
+            CreateMap<CustomerAddDto, Customer>();
+            CreateMap<Customer, CustomerAddDto>();
+
+            CreateMap<CustomerUpdateDto, Customer>();
+            CreateMap<Customer, CustomerUpdateDto>();
+
+            CreateMap<CustomerDeleteDto, Customer>();
+            CreateMap<Customer, CustomerDeleteDto>();
+        }
     }
 }

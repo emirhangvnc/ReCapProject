@@ -72,15 +72,14 @@ namespace Business.Concrete
         }
         #endregion
 
-        public IDataResult<Model> GetByModelId(int modelId)
-        {
-            return new SuccessDataResult<Model>(_modelDal.Get(m => m.ModelId == modelId));
-        }
-
         [CacheAspect]
         public IDataResult<List<Model>> GetAll()
         {
             return new SuccessDataResult<List<Model>>(_modelDal.GetAll(), Messages.ModelsListed);
+        }
+        public IDataResult<Model> GetByModelId(int modelId)
+        {
+            return new SuccessDataResult<Model>(_modelDal.Get(m => m.ModelId == modelId));
         }
         public IDataResult<List<Model>> GetByBrandId(int brandId)
         {

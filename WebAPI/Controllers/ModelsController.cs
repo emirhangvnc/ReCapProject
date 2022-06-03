@@ -29,7 +29,7 @@ namespace WebAPI.Controllers
 
         [HttpGet]
         [Route("[action]")]
-        public IActionResult GetCustomerDetails()
+        public IActionResult GetModelDetails()
         {
             var result = _modelService.GetModelDetails();
             if (result.Success)
@@ -41,7 +41,7 @@ namespace WebAPI.Controllers
 
         [HttpGet]
         [Route("[action]")]
-        public IActionResult GetById(int customerId)
+        public IActionResult GetByModelId(int customerId)
         {
             var result = _modelService.GetByModelId(customerId);
             if (result.Success)

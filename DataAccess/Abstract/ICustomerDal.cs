@@ -1,7 +1,7 @@
 ﻿using Entities.Concrete;
 using Core.Entities;
-using Entities.DTOs;
 using System.Collections.Generic;
+using Entities.DTOs.CustomerDto;
 
 namespace DataAccess.Abstract
 {

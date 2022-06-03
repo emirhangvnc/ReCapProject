@@ -7,7 +7,6 @@ using Entities.DTOs.CustomerDto;
 using DataAccess.Abstract;
 using Entities.Concrete;
 using AutoMapper;
-using Entities.DTOs;
 using System.Linq;
 using System.Collections.Generic;
 using Business.ValidationRules.FluentValidation.CustomerValidator;

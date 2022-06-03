@@ -1,8 +1,8 @@
 ﻿using Core.Entities;
 
-namespace Entities.DTOs
+namespace Entities.DTOs.CustomerDto
 {
-    public class CustomerDetailDto:IDto
+    public class CustomerDetailDto : IDto
     {
         public int Customer_Id { get; set; }
         public string GenderName { get; set; }

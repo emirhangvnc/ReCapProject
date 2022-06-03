@@ -1,5 +1,6 @@
 ﻿using Business.Abstract;
 using Entities.Concrete;
+using Entities.DTOs.CategoryDto;
 using Microsoft.AspNetCore.Mvc;
 
 namespace WebAPI.Controllers
@@ -41,9 +42,9 @@ namespace WebAPI.Controllers
 
         [HttpPost]
         [Route("[action]")]
-        public IActionResult Add(Category category)
+        public IActionResult Add(CategoryAddDto categoryAddDto)
         {
-            var result = _categoryService.Add(category);
+            var result = _categoryService.Add(categoryAddDto);
             if (result.Success)
             {
                 return Ok(result);
@@ -53,9 +54,9 @@ namespace WebAPI.Controllers
 
         [HttpPost]
         [Route("[action]")]
-        public IActionResult Delete(Category category)
+        public IActionResult Delete(CategoryDeleteDto categoryDeleteDto)
         {
-            var result = _categoryService.Delete(category);
+            var result = _categoryService.Delete(categoryDeleteDto);
             if (result.Success)
             {
                 return Ok(result);
@@ -65,9 +66,9 @@ namespace WebAPI.Controllers
 
         [HttpPost]
         [Route("[action]")]
-        public IActionResult Update(Category category)
+        public IActionResult Update(CategoryUpdateDto categoryUpdateDto)
         {
-            var result = _categoryService.Update(category);
+            var result = _categoryService.Update(categoryUpdateDto);
             if (result.Success)
             {
                 return Ok(result);

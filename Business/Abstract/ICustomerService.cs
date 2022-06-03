@@ -1,6 +1,5 @@
 ﻿using Core.Utilities.Results.Abstract;
 using Entities.Concrete;
-using Entities.DTOs;
 using Entities.DTOs.CustomerDto;
 using System.Collections.Generic;
 

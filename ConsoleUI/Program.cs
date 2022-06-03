@@ -17,10 +17,10 @@ namespace ConsoleUI
     {
         static void Main(string[] args)
         {
-            ModelManager modelManager = new ModelManager(new EfModelDal());
-            BrandManager brandManager = new BrandManager(new EfBrandDal());
-            CustomerManager customerManager = new CustomerManager(new EfCustomerDal());
-            GenderManager genderManager = new GenderManager(new EfGenderDal());
+            //ModelManager modelManager = new ModelManager(new EfModelDal());
+            //BrandManager brandManager = new BrandManager(new EfBrandDal());
+            //CustomerManager customerManager = new CustomerManager(new EfCustomerDal());
+            //GenderManager genderManager = new GenderManager(new EfGenderDal());
 
             //authManager.Register(UserForRegisterDto userForRegisterDto, string password();
 

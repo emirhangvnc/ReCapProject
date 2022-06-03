@@ -1,9 +1,6 @@
 ﻿using Business.Abstract;
-using Business.BusinessAspects.Autofac;
 using Business.Constants;
-using Business.ValidationRules.FluentValidation;
 using Core.Aspects.Autofac.Validation;
-using Core.Utilities.Helpers;
 using Core.Utilities.Business;
 using Core.Utilities.Results.Abstract;
 using Core.Utilities.Results.Concrete;
@@ -12,48 +9,55 @@ using DataAccess.Abstract;
 using Entities.Concrete;
 using Microsoft.AspNetCore.Http;
 using System;
+using AutoMapper;
 using System.Collections.Generic;
 using Core.Utilities.Helpers.FileHelper;
+using Entities.DTOs.CarImageDto;
+using Business.ValidationRules.FluentValidation.CarImageValidator;
 
 namespace Business.Concrete
 {
     internal class CarImageManager : ICarImageService
     {
         private static ICarImageDal _carImageDal;
-        public CarImageManager(ICarImageDal carImageDal)
+        IMapper _mapper;
+        public CarImageManager(ICarImageDal carImageDal,IMapper mapper)
         {
             _carImageDal = carImageDal;
+            _mapper = mapper;
         }
 
         #region Void
 
         //[SecuredOperation("admin,moderator")]
-        [ValidationAspect(typeof(CarImageValidator))]
-        public IResult Add(IFormFile formFile, CarImage carImage)
+        [ValidationAspect(typeof(CarImageAddDtoValidator))]
+        public IResult Add(IFormFile formFile, CarImageAddDto carImageAddDto)
         {
             IResult result = BusinessRules.Run(
-                  CheckIfImageCountOfCarCorrect(carImage.CarId),
-                  TurnDateNowAndCheckImage(carImage)
+                  CheckIfImageCountOfCarCorrect(carImageAddDto.CarId)
                   );
             if (result != null)
             {
                 return result;
             }
+
             var imageResult = FileHelper.Upload(formFile);
             if (!imageResult.Success)
             {
                 return new ErrorResult(imageResult.Message);
             }
 
-            carImage.ImagePath = imageResult.Message;
+            var carImage = _mapper.Map<CarImage>(carImageAddDto);
             carImage.Date = DateTime.Now;
+            carImage.ImagePath = imageResult.Message;
             _carImageDal.Add(carImage);
             return new SuccessResult(Messages.CarImageAdded);
         }
 
-        public IResult Delete(CarImage carImage)
+        [ValidationAspect(typeof(CarImageDeleteDtoValidator))]
+        public IResult Delete(CarImageDeleteDto carImageDeleteDto)
         {
-            var result = _carImageDal.Get(c => c.Id == carImage.Id);
+            var result = _carImageDal.Get(c => c.Id == carImageDeleteDto.Id);
             if (result==null)
             {
                 return new ErrorResult("Image Not Found");
@@ -63,27 +67,31 @@ namespace Business.Concrete
             return new SuccessResult(Messages.CarImageDeleted);
         }
 
-        [ValidationAspect(typeof(CarImageValidator))]
-        public IResult Update(IFormFile formFile, CarImage carImage)
+        [ValidationAspect(typeof(CarImageUpdateDtoValidator))]
+        public IResult Update(IFormFile formFile, CarImageUpdateDto carImageUpdateDto)
         {
             IResult result = BusinessRules.Run(
-                 CheckIfImageCountOfCarCorrect(carImage.CarId),
-                 TurnDateNowAndCheckImage(carImage)
+                 CheckIfImageCountOfCarCorrect(carImageUpdateDto.CarId)
                  );
             if (result != null)
             {
                 return result;
             }
-            var isImage=_carImageDal.Get(c=>c.Id == carImage.CarId);
+
+            var isImage=_carImageDal.Get(c=>c.Id == carImageUpdateDto.CarId);
             if (isImage==null)
             {
                 return new ErrorResult(Messages.CarImageNotFound);
             }
+
             var updatedFile = FileHelper.Update(formFile, isImage.ImagePath);
             if (!updatedFile.Success)
             {
                 return new ErrorResult(updatedFile.Message);
             }
+            var carImage = _mapper.Map(carImageUpdateDto,isImage);
+
+            carImage.Date = DateTime.Now;
             carImage.ImagePath = updatedFile.Message;
             _carImageDal.Update(carImage);
             return new SuccessResult(Messages.CarImageUpdated);
@@ -113,16 +121,6 @@ namespace Business.Concrete
             if (result >= 5)
             {
                 return new ErrorResult(Messages.ImageCountOfCarError);
-            }
-            return new SuccessResult();
-        }
-
-        private IResult TurnDateNowAndCheckImage(CarImage carImage)
-        {
-            carImage.Date = DateTime.Now;
-            if (carImage.ImagePath == null)
-            {
-                carImage.ImagePath = "DefaultImage.jpg";
             }
             return new SuccessResult();
         }

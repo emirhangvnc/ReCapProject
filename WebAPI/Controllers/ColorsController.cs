@@ -1,5 +1,6 @@
 ﻿using Business.Abstract;
 using Entities.Concrete;
+using Entities.DTOs.ColorDto;
 using Microsoft.AspNetCore.Mvc;
 
 namespace WebAPI.Controllers
@@ -41,9 +42,9 @@ namespace WebAPI.Controllers
 
         [HttpPost]
         [Route("[action]")]
-        public IActionResult Add(Color color)
+        public IActionResult Add(ColorAddDto colorAddDto)
         {
-            var result = _colorService.Add(color);
+            var result = _colorService.Add(colorAddDto);
             if (result.Success)
             {
                 return Ok(result);
@@ -53,9 +54,9 @@ namespace WebAPI.Controllers
 
         [HttpPost]
         [Route("[action]")]
-        public IActionResult Delete(Color color)
+        public IActionResult Delete(ColorDeleteDto colorDeleteDto)
         {
-            var result = _colorService.Delete(color);
+            var result = _colorService.Delete(colorDeleteDto);
             if (result.Success)
             {
                 return Ok(result);
@@ -65,9 +66,9 @@ namespace WebAPI.Controllers
 
         [HttpPost]
         [Route("[action]")]
-        public IActionResult Update(Color color)
+        public IActionResult Update(ColorUpdateDto colorUpdateDto)
         {
-            var result = _colorService.Update(color);
+            var result = _colorService.Update(colorUpdateDto);
             if (result.Success)
             {
                 return Ok(result);

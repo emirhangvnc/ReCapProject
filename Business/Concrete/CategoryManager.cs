@@ -1,46 +1,66 @@
 ﻿using Business.Abstract;
-using Business.BusinessAspects.Autofac;
 using Business.Constants;
-using Business.ValidationRules.FluentValidation;
 using Core.Aspects.Autofac.Validation;
 using Core.Utilities.Results.Abstract;
 using Core.Utilities.Results.Concrete;
+using System.Linq;
 using DataAccess.Abstract;
+using Business.ValidationRules.FluentValidation.CategoryValidator;
 using Entities.Concrete;
+using Entities.DTOs.CategoryDto;
 using System.Collections.Generic;
+using AutoMapper;
 
 namespace Business.Concrete
 {
     public class CategoryManager:ICategoryService
     {
         ICategoryDal _categoryDal;
-        public CategoryManager(ICategoryDal categoryDal)
+        IMapper _mapper;
+        public CategoryManager(ICategoryDal categoryDal,IMapper mapper)
         {
-            _categoryDal= categoryDal;  
+            _categoryDal= categoryDal;
+            _mapper = mapper;
         }
 
         #region Void işlemleri
 
         //[SecuredOperation("admin,moderator")]
-        [ValidationAspect(typeof(CategoryValidator))]
-        public IResult Add(Category category)
+        [ValidationAspect(typeof(CategoryAddDtoValidator))]
+        public IResult Add(CategoryAddDto categoryAddDto)
         {
+            var result = _categoryDal.Get(c => c.CategoryName == categoryAddDto.Name);
+            if (result != null)
+                return new ErrorResult("Böyle Bir Category Zaten Mevcut");
+
+            var category = _mapper.Map<Category>(categoryAddDto);
             _categoryDal.Add(category);
             return new SuccessResult(Messages.CategoryAdded);
         }
 
         //[SecuredOperation("admin,moderator")]
-        public IResult Delete(Category category)
+        public IResult Delete(CategoryDeleteDto categoryDeleteDto)
         {
-            _categoryDal.Delete(category);
-            return new SuccessResult(Messages.CategoryDeleted);
+            var result = _categoryDal.GetAll().SingleOrDefault(c => c.CategoryId == categoryDeleteDto.Id);
+            if (result != null)
+            {
+                _categoryDal.Delete(result);
+                return new SuccessResult(Messages.CategoryDeleted);
+            }
+            return new ErrorResult("Silinecek Category Bulunamadı");
         }
 
         //[SecuredOperation("admin,moderator")]
-        public IResult Update(Category category)
+        public IResult Update(CategoryUpdateDto categoryUpdateDto)
         {
-            _categoryDal.Update(category);
-            return new SuccessResult(Messages.CategoryUpdated);
+            var result = _categoryDal.Get(m => m.CategoryId == categoryUpdateDto.Id);
+            if (result == null)
+            {
+                return new ErrorResult("Bu Veride Bir Müşteri Yok");
+            }
+            var customer = _mapper.Map(categoryUpdateDto, result);
+            _categoryDal.Update(customer);
+            return new SuccessResult(Messages.CustomerUpdated);
         }
         #endregion
 

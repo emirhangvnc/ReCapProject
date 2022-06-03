@@ -42,7 +42,7 @@ namespace WebAPI.Controllers
 
         [HttpGet]
         [Route("[action]")]
-        public IActionResult GetById(int customerId)
+        public IActionResult GetByCustomerId(int customerId)
         {
             var result = _customersService.GetById(customerId);
             if (result.Success)

@@ -1,5 +1,6 @@
 ﻿using Business.Abstract;
 using Entities.Concrete;
+using Entities.DTOs.CarImageDto;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 
@@ -54,9 +55,9 @@ namespace WebAPI.Controllers
 
         [HttpPost]
         [Route("[action]")]
-        public IActionResult Add([FromForm(Name =("image"))]IFormFile file,[FromForm]CarImage carImage)
+        public IActionResult Add([FromForm(Name =("image"))]IFormFile file,[FromForm]CarImageAddDto CarImageAddDto)
         {
-            var result = _carImageService.Add(file,carImage);
+            var result = _carImageService.Add(file, CarImageAddDto);
             if (result.Success)
             {
                 return Ok(result);
@@ -66,10 +67,10 @@ namespace WebAPI.Controllers
 
         [HttpPost]
         [Route("[action]")]
-        public IActionResult Delete([FromForm(Name =("Id"))] int id)
+        public IActionResult Delete([FromForm(Name =("Id"))] CarImageDeleteDto carImageDeleteDto)
         {
-            var carImage = _carImageService.GetByImageId(id).Data;
-            var result = _carImageService.Delete(carImage);
+            //var carImage = _carImageService.GetByImageId(carImageDeleteDto.Id).Data;
+            var result = _carImageService.Delete(carImageDeleteDto);
             if (result.Success)
             {
                 return Ok(result);
@@ -79,10 +80,9 @@ namespace WebAPI.Controllers
 
         [HttpPost]
         [Route("[action]")]
-        public IActionResult Update([FromForm(Name =("Image"))] IFormFile file, [FromForm(Name =("Id"))] int id)
+        public IActionResult Update([FromForm(Name =("Image"))] IFormFile file, [FromForm(Name =("Id"))] CarImageUpdateDto carImageUpdateDto)
         {
-            var carImage = _carImageService.GetByImageId(id).Data;
-            var result = _carImageService.Update(file, carImage);
+            var result = _carImageService.Update(file, carImageUpdateDto);
             if (result.Success)
             {
                 return Ok(result);

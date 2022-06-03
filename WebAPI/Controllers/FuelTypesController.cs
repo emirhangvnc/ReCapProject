@@ -1,5 +1,6 @@
 ﻿using Business.Abstract;
 using Entities.Concrete;
+using Entities.DTOs.FuelTypeDto;
 using Microsoft.AspNetCore.Mvc;
 
 namespace WebAPI.Controllers
@@ -41,9 +42,9 @@ namespace WebAPI.Controllers
 
         [HttpPost]
         [Route("[action]")]
-        public IActionResult Add(FuelType fuelType)
+        public IActionResult Add(FuelTypeAddDto fuelTypeAddDto)
         {
-            var result = _fuelTypeService.Add(fuelType);
+            var result = _fuelTypeService.Add(fuelTypeAddDto);
             if (result.Success)
             {
                 return Ok(result);
@@ -53,9 +54,9 @@ namespace WebAPI.Controllers
 
         [HttpPost]
         [Route("[action]")]
-        public IActionResult Delete(FuelType fuelType)
+        public IActionResult Delete(FuelTypeDeleteDto fuelTypeDeleteDto)
         {
-            var result = _fuelTypeService.Delete(fuelType);
+            var result = _fuelTypeService.Delete(fuelTypeDeleteDto);
             if (result.Success)
             {
                 return Ok(result);
@@ -65,9 +66,9 @@ namespace WebAPI.Controllers
 
         [HttpPost]
         [Route("[action]")]
-        public IActionResult Update(FuelType fuelType)
+        public IActionResult Update(FuelTypeUpdateDto fuelTypeUpdateDto)
         {
-            var result = _fuelTypeService.Update(fuelType);
+            var result = _fuelTypeService.Update(fuelTypeUpdateDto);
             if (result.Success)
             {
                 return Ok(result);

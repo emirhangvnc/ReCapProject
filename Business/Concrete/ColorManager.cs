@@ -1,13 +1,15 @@
 ﻿using Business.Abstract;
-using Business.BusinessAspects.Autofac;
 using Business.Constants;
-using Business.ValidationRules.FluentValidation;
+using Business.ValidationRules.FluentValidation.ColorValidator;
 using Core.Aspects.Autofac.Caching;
 using Core.Aspects.Autofac.Validation;
 using Core.Utilities.Results.Abstract;
 using Core.Utilities.Results.Concrete;
 using DataAccess.Abstract;
 using Entities.Concrete;
+using AutoMapper;
+using System.Linq;
+using Entities.DTOs.ColorDto;
 using System.Collections.Generic;
 
 namespace Business.Concrete
@@ -15,34 +17,54 @@ namespace Business.Concrete
     public class ColorManager:IColorService
     {
         IColorDal _colorDal;
-        public ColorManager(IColorDal colorDal)
+        IMapper _mapper;
+        public ColorManager(IColorDal colorDal,IMapper mapper)
         {
             _colorDal = colorDal;
+            _mapper = mapper;
         }
 
         #region Void işlemleri
 
         //[SecuredOperation("admin")]
+        [ValidationAspect(typeof(ColorAddDtoValidator))]
         [CacheRemoveAspect("IColorService.Get")]
-        [ValidationAspect(typeof(ColorValidator))]
-        public IResult Add(Color color)
+        public IResult Add(ColorAddDto colorAddDto)
         {
+            var result = _colorDal.Get(m => m.ColorName == colorAddDto.Name);
+            if (result != null)
+                return new ErrorResult("Böyle Bir Renk Zaten Mevcut");
+
+            var color = _mapper.Map<Color>(colorAddDto);
             _colorDal.Add(color);
             return new SuccessResult(Messages.ColorAdded);
         }
 
         //[SecuredOperation("admin")]
+        [ValidationAspect(typeof(ColorDeleteDtoValidator))]
         [CacheRemoveAspect("IColorService.Get")]
-        public IResult Delete(Color color)
+        public IResult Delete(ColorDeleteDto colorDeleteDto)
         {
-            _colorDal.Delete(color);
-            return new SuccessResult(Messages.ColorDeleted);
+            var result = _colorDal.GetAll().SingleOrDefault(m => m.ColorId == colorDeleteDto.Id);
+            if (result != null)
+            {
+                _colorDal.Delete(result);
+                return new SuccessResult(Messages.ColorDeleted);
+            }
+            return new ErrorResult("Renk Bulunamadı");
         }
 
         //[SecuredOperation("admin")]
+        [ValidationAspect(typeof(ColorUpdateDtoValidator))]
         [CacheRemoveAspect("IColorService.Get")]
-        public IResult Update(Color color)
+        public IResult Update(ColorUpdateDto colorUpdateDto)
         {
+            var result = _colorDal.Get(m => m.ColorId == colorUpdateDto.Id);
+            if (result == null)
+            {
+                return new ErrorResult("Bu Veride Bir Renk Yok");
+            }
+            var color = _mapper.Map(colorUpdateDto, result);
             _colorDal.Update(color);
             return new SuccessResult(Messages.ColorUpdated);
         }

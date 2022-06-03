@@ -1,5 +1,6 @@
 ﻿using Core.Utilities.Results.Abstract;
 using Entities.Concrete;
+using Entities.DTOs.FuelTypeDto;
 using System.Collections.Generic;
 
 namespace Business.Abstract
@@ -8,8 +9,8 @@ namespace Business.Abstract
     {
         IDataResult<List<FuelType>> GetAll();
         IDataResult<FuelType> GetFuelTypeId(int fuelTypeId);
-        IResult Add(FuelType fuelType);
-        IResult Delete(FuelType fuelType);
-        IResult Update(FuelType fuelType);
+        IResult Add(FuelTypeAddDto fuelTypeAddDto);
+        IResult Delete(FuelTypeDeleteDto fuelTypeDeleteDto);
+        IResult Update(FuelTypeUpdateDto fuelTypeUpdateDto);
     }
 }
