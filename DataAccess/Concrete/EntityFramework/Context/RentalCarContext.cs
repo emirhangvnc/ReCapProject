@@ -1,11 +1,20 @@
 ﻿using Core.Entities.Concrete;
 using Entities.Concrete;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore.Storage;
 
 namespace DataAccess.Concrete.EntityFramework.Context
 {
     public class RentalCarContext : DbContext
     {
+        public RentalCarContext()
+        {
+
+        }
+        public RentalCarContext(DbContextOptions option):base(option)
+        {
+             this.Database.SetCommandTimeout(9999999);
+        }
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
             optionsBuilder.UseSqlServer(@"Server=(localdb)\mssqllocaldb;Database=RentalCar;Trusted_Connection=True");
@@ -18,7 +27,6 @@ namespace DataAccess.Concrete.EntityFramework.Context
         public DbSet<Color> Colors { get; set; }
         public DbSet<Customer> Customers { get; set; }
         public DbSet<FuelType> FuelTypes { get; set; }
-        public DbSet<Gender> Genders { get; set; }
         public DbSet<Model> Models { get; set; }
         public DbSet<Rental> Rentals { get; set; }
         public DbSet<User> Users { get; set; }

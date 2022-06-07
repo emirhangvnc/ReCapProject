@@ -12,11 +12,6 @@ namespace Business.Abstract
         IDataResult<List<Model>> GetAll();
         IDataResult<List<Model>> GetByBrandId(int brandId);
         IDataResult<List<Model>> GetByColorId(int colorId);
-
-        IDataResult<List<Model>> GetByDailyPriceContains(decimal minPrice, decimal maxPrice);
-        IDataResult<List<Model>> GetByDailyPrice(decimal price);
-        IDataResult<List<Model>> GetByDailyPriceBuyuktur(decimal price);
-        IDataResult<List<Model>> GetByDailyPriceKucuktur(decimal price);
         IDataResult<List<ModelDetailDto>> GetModelDetails();
 
         IResult Add(ModelAddDto modelAddDto);

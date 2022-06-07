@@ -41,9 +41,21 @@ namespace WebAPI.Controllers
 
         [HttpGet]
         [Route("[action]")]
-        public IActionResult GetByModelId(int customerId)
+        public IActionResult GetByModelId(int modelId)
         {
-            var result = _modelService.GetByModelId(customerId);
+            var result = _modelService.GetByModelId(modelId);
+            if (result.Success)
+            {
+                return Ok(result);
+            }
+            return BadRequest(result);
+        }
+
+        [HttpGet]
+        [Route("[action]")]
+        public IActionResult GetByBrand(int brandId)
+        {
+            var result = _modelService.GetByBrandId(brandId);
             if (result.Success)
             {
                 return Ok(result);

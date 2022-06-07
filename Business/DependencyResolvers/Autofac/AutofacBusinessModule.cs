@@ -36,9 +36,6 @@ namespace Business.DependencyResolvers.Autofac
             builder.RegisterType<FuelTypeManager>().As<IFuelTypeService>().SingleInstance();
             builder.RegisterType<EfFuelTypeDal>().As<IFuelTypeDal>().SingleInstance();
 
-            builder.RegisterType<GenderManager>().As<IGenderService>().SingleInstance();
-            builder.RegisterType<EfGenderDal>().As<IGenderDal>().SingleInstance();
-
             builder.RegisterType<ModelManager>().As<IModelService>().SingleInstance();
             builder.RegisterType<EfModelDal>().As<IModelDal>().SingleInstance();
 

@@ -83,28 +83,12 @@ namespace Business.Concrete
         }
         public IDataResult<List<Model>> GetByBrandId(int brandId)
         {
-            return new SuccessDataResult<List<Model>>(_modelDal.GetAll().Where(m => m.BrandId == brandId).ToList());
+            return new SuccessDataResult<List<Model>>(_modelDal.GetAll(m => m.BrandId == brandId));
         }
+
         public IDataResult<List<Model>> GetByColorId(int colorId)
         {
             return new SuccessDataResult<List<Model>>(_modelDal.GetAll().Where(c => c.ColorId == colorId).ToList());
-        }
-
-        public IDataResult<List<Model>> GetByDailyPriceContains(decimal minPrice, decimal maxPrice)
-        {
-            return new SuccessDataResult<List<Model>>(_modelDal.GetAll().Where(c => c.DailyPrice >= minPrice && c.DailyPrice <= maxPrice).ToList());
-        }
-        public IDataResult<List<Model>> GetByDailyPrice(decimal price)
-        {
-            return new SuccessDataResult<List<Model>>(_modelDal.GetAll().Where(c => c.DailyPrice == price).ToList());
-        }
-        public IDataResult<List<Model>> GetByDailyPriceBuyuktur(decimal price)
-        {
-            return new SuccessDataResult<List<Model>>(_modelDal.GetAll().Where(c => c.DailyPrice >= price).ToList());
-        }
-        public IDataResult<List<Model>> GetByDailyPriceKucuktur(decimal price)
-        {
-            return new SuccessDataResult<List<Model>>(_modelDal.GetAll().Where(c => c.DailyPrice <= price).ToList());
         }
 
         [CacheAspect]
