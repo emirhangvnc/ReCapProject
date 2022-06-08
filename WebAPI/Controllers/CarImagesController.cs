@@ -31,7 +31,7 @@ namespace WebAPI.Controllers
 
         [HttpGet]
         [Route("[action]")]
-        public IActionResult GetImagesById(int carId)
+        public IActionResult GetImagesByCarId(int carId)
         {
             var result=_carImageService.GetImagesByCarId(carId);
             if (result.Success)
@@ -55,9 +55,13 @@ namespace WebAPI.Controllers
 
         [HttpPost]
         [Route("[action]")]
-        public IActionResult Add([FromForm(Name =("image"))]IFormFile file,[FromForm]CarImageAddDto CarImageAddDto)
+        public IActionResult Add([FromForm(Name = ("image"))] IFormFile file, [FromForm] CarImage carImage)
         {
-            var result = _carImageService.Add(file, CarImageAddDto);
+            if (file == null)
+            {
+                return BadRequest("Boş resim gönderemezsin");
+            }
+            var result = _carImageService.Add(file, carImage);
             if (result.Success)
             {
                 return Ok(result);
@@ -67,10 +71,10 @@ namespace WebAPI.Controllers
 
         [HttpPost]
         [Route("[action]")]
-        public IActionResult Delete([FromForm(Name =("Id"))] CarImageDeleteDto carImageDeleteDto)
+        public IActionResult Delete([FromForm(Name =("Id"))] CarImage carImage)
         {
             //var carImage = _carImageService.GetByImageId(carImageDeleteDto.Id).Data;
-            var result = _carImageService.Delete(carImageDeleteDto);
+            var result = _carImageService.Delete(carImage);
             if (result.Success)
             {
                 return Ok(result);
@@ -80,9 +84,9 @@ namespace WebAPI.Controllers
 
         [HttpPost]
         [Route("[action]")]
-        public IActionResult Update([FromForm(Name =("Image"))] IFormFile file, [FromForm(Name =("Id"))] CarImageUpdateDto carImageUpdateDto)
+        public IActionResult Update([FromForm(Name =("Image"))] IFormFile file, [FromForm(Name =("Id"))] CarImage carImage)
         {
-            var result = _carImageService.Update(file, carImageUpdateDto);
+            var result = _carImageService.Update(file, carImage);
             if (result.Success)
             {
                 return Ok(result);

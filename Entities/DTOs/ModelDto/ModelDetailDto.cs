@@ -1,4 +1,5 @@
 ﻿using Core.Entities;
+using System.Collections.Generic;
 
 namespace Entities.DTOs.ModelDto
 {
@@ -10,6 +11,6 @@ namespace Entities.DTOs.ModelDto
         public string ModelName { get; set; }
         public int ModelYear { get; set; }
         public decimal DailyPrice { get; set; }
-        public string ImagePath { get; set; }
+        public List<string> ImagePath { get; set; }
     }
 }

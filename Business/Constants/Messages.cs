@@ -76,6 +76,11 @@ namespace Business.Constants
 
         public static string NotEmpty = "Alanı Boş Bırakılamaz";
         public static string CarImageMustBeExists= "Araba Resmi Ekleyiniz";
+
+        public static string[] ValidImageFileTypes = { ".JPG", ".JPEG", ".PNG", ".TIF", ".TIFF", ".GIF", ".BMP", ".ICO" };
         public static string CarImageNotFound="Araç Resmi Bulunamadı";
+        public static string ImageLimitExpiredForCar = "Bir arabaya maximum 5 fotoğraf eklenebilir";
+        public static string InvalidImageExtension = "Geçersiz dosya uzantısı, fotoğraf için kabul edilen uzantılar" + string.Join(",", ValidImageFileTypes);
+        public static string CarHaveNoImage = "Arabaya ait bi resim yok";
     }
 }

@@ -1,5 +1,7 @@
-﻿using Business.Abstract;
+﻿using AutoMapper;
+using Business.Abstract;
 using Business.Constants;
+using Business.ValidationRules.FluentValidation.CarImageValidator;
 using Core.Aspects.Autofac.Validation;
 using Core.Utilities.Business;
 using Core.Utilities.Results.Abstract;
@@ -7,13 +9,13 @@ using Core.Utilities.Results.Concrete;
 using Core.Utilities.Results.Concrete.BaseConcrete;
 using DataAccess.Abstract;
 using Entities.Concrete;
+using Entities.DTOs.CarImageDto;
+using System.Linq;
 using Microsoft.AspNetCore.Http;
 using System;
-using AutoMapper;
 using System.Collections.Generic;
+using System.IO;
 using Core.Utilities.Helpers.FileHelper;
-using Entities.DTOs.CarImageDto;
-using Business.ValidationRules.FluentValidation.CarImageValidator;
 
 namespace Business.Concrete
 {
@@ -30,71 +32,60 @@ namespace Business.Concrete
         #region Void
 
         //[SecuredOperation("admin,moderator")]
-        [ValidationAspect(typeof(CarImageAddDtoValidator))]
-        public IResult Add(IFormFile formFile, CarImageAddDto carImageAddDto)
+        //[ValidationAspect(typeof(CarImageAddDtoValidator))]
+        public IResult Add(IFormFile file, CarImage carImage)
         {
             IResult result = BusinessRules.Run(
-                  CheckIfImageCountOfCarCorrect(carImageAddDto.CarId)
-                  );
+                CheckIfImageLimitExpired(carImage.CarId),
+                CheckIfImageExtensionValid(file)
+                );
+
             if (result != null)
             {
                 return result;
             }
-
-            var imageResult = FileHelper.Upload(formFile);
-            if (!imageResult.Success)
-            {
-                return new ErrorResult(imageResult.Message);
-            }
-
-            var carImage = _mapper.Map<CarImage>(carImageAddDto);
+            carImage.ImagePath = FileHelper.Add(file);
             carImage.Date = DateTime.Now;
-            carImage.ImagePath = imageResult.Message;
             _carImageDal.Add(carImage);
-            return new SuccessResult(Messages.CarImageAdded);
+            return new SuccessResult();
         }
 
-        [ValidationAspect(typeof(CarImageDeleteDtoValidator))]
-        public IResult Delete(CarImageDeleteDto carImageDeleteDto)
-        {
-            var result = _carImageDal.Get(c => c.Id == carImageDeleteDto.Id);
-            if (result==null)
-            {
-                return new ErrorResult("Image Not Found");
-            }
-            FileHelper.Delete(result.ImagePath);
-            _carImageDal.Delete(result);
-            return new SuccessResult(Messages.CarImageDeleted);
-        }
-
-        [ValidationAspect(typeof(CarImageUpdateDtoValidator))]
-        public IResult Update(IFormFile formFile, CarImageUpdateDto carImageUpdateDto)
+        //[ValidationAspect(typeof(CarImageDeleteDtoValidator))]
+        public IResult Delete(CarImage carImage)
         {
             IResult result = BusinessRules.Run(
-                 CheckIfImageCountOfCarCorrect(carImageUpdateDto.CarId)
-                 );
+                CheckIfImageExists(carImage.ImageId)
+                );
+            if (result != null)
+            {
+                return result;
+            }
+            string path = GetByImageId(carImage.ImageId).Data.ImagePath;
+            FileHelper.Delete(path);
+            _carImageDal.Delete(carImage);
+            return new SuccessResult();
+        }
+
+        //[ValidationAspect(typeof(CarImageUpdateDtoValidator))]
+        public IResult Update(IFormFile file, CarImage carImage)
+        {
+            IResult result = BusinessRules.Run(
+                CheckIfImageLimitExpired(carImage.CarId),
+                CheckIfImageExtensionValid(file),
+                CheckIfImageExists(carImage.ImageId)
+                );
+
             if (result != null)
             {
                 return result;
             }
 
-            var isImage=_carImageDal.Get(c=>c.Id == carImageUpdateDto.CarId);
-            if (isImage==null)
-            {
-                return new ErrorResult(Messages.CarImageNotFound);
-            }
-
-            var updatedFile = FileHelper.Update(formFile, isImage.ImagePath);
-            if (!updatedFile.Success)
-            {
-                return new ErrorResult(updatedFile.Message);
-            }
-            var carImage = _mapper.Map(carImageUpdateDto,isImage);
-
+            CarImage oldCarImage = GetByImageId(carImage.ImageId).Data;
+            carImage.ImagePath = FileHelper.Update(file, oldCarImage.ImagePath);
             carImage.Date = DateTime.Now;
-            carImage.ImagePath = updatedFile.Message;
+            carImage.CarId = oldCarImage.CarId;
             _carImageDal.Update(carImage);
-            return new SuccessResult(Messages.CarImageUpdated);
+            return new SuccessResult();
         }
         #endregion
 
@@ -105,7 +96,7 @@ namespace Business.Concrete
 
         public IDataResult<CarImage> GetByImageId(int imageId)
         {
-            return new SuccessDataResult<CarImage>(_carImageDal.Get(c => c.Id == imageId));
+            return new SuccessDataResult<CarImage>(_carImageDal.Get(c => c.ImageId == imageId));
         }
 
         public IDataResult<List<CarImage>> GetImagesByCarId(int carId)
@@ -115,20 +106,33 @@ namespace Business.Concrete
 
         #region Özel Methodlar
 
-        private IResult CheckIfImageCountOfCarCorrect(int modelId)
+        private IResult CheckIfImageLimitExpired(int carId)
         {
-            var result = _carImageDal.GetAll(c => c.CarId == modelId).Count;
+            int result = _carImageDal.GetAll(c => c.CarId == carId).Count;
             if (result >= 5)
-            {
-                return new ErrorResult(Messages.ImageCountOfCarError);
-            }
+                return new ErrorResult(Messages.ImageLimitExpiredForCar);
+            return new SuccessResult();
+        }
+
+        private IResult CheckIfImageExtensionValid(IFormFile file)
+        {
+            bool isValidFileExtension = Messages.ValidImageFileTypes.Any(t => t == Path.GetExtension(file.FileName).ToUpper());
+            if (!isValidFileExtension)
+                return new ErrorResult(Messages.InvalidImageExtension);
             return new SuccessResult();
         }
 
         private static IResult CheckTheCarImageExists(int fileId)
         {
-            return _carImageDal.Get(c => c.Id == fileId) != null ? new Result(true)
+            return _carImageDal.Get(c => c.ImageId == fileId) != null ? new Result(true)
                 : new ErrorResult(Messages.CarImageMustBeExists);
+        }
+
+        private IResult CheckIfImageExists(int id)
+        {
+            if (_carImageDal.IsExist(id))
+                return new SuccessResult();
+            return new ErrorResult(Messages.CarImageMustBeExists);
         }
         #endregion
     }
