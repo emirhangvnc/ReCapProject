@@ -1,6 +1,7 @@
 ﻿using Core.Entities.Concrete;
 using Entities.Concrete;
 using Microsoft.EntityFrameworkCore;
+using DataAccess.Concrete.EntityFramework.Mapping;
 using Microsoft.EntityFrameworkCore.Storage;
 
 namespace DataAccess.Concrete.EntityFramework.Context
@@ -18,6 +19,11 @@ namespace DataAccess.Concrete.EntityFramework.Context
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
             optionsBuilder.UseSqlServer(@"Server=(localdb)\mssqllocaldb;Database=RentalCar;Trusted_Connection=True");
+        }
+
+        protected override void OnModelCreating(ModelBuilder modelBuilder)
+        {
+            modelBuilder.ApplyConfiguration(new BrandMap());
         }
 
         public DbSet<Brand> Brands { get; set; }
