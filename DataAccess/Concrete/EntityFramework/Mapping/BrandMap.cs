@@ -15,8 +15,6 @@ namespace DataAccess.Concrete.EntityFramework.Mapping
         {
             builder.ToTable("Brands");
             builder.HasKey(b => b.BrandId);
-            builder.Property(b => b.BrandName).IsRequired();
-            builder.Property(b => b.BrandName).HasMaxLength(30);
         }
     }
 }

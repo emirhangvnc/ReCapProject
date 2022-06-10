@@ -9,14 +9,9 @@ namespace Business.AutoMapper.Profiles
     {
         public ColorProfile()
         {
-            CreateMap<ColorAddDto, Color>();
-            CreateMap<Color, ColorAddDto>();
-
-            CreateMap<ColorUpdateDto, Color>();
-            CreateMap<Color, ColorUpdateDto>();
-
-            CreateMap<ColorDeleteDto, Color>();
-            CreateMap<Color, ColorDeleteDto>();
+            CreateMap<ColorAddDto, Color>().ReverseMap();
+            CreateMap<ColorUpdateDto, Color>().ReverseMap();
+            CreateMap<ColorDeleteDto, Color>().ReverseMap();
         }
     }
 }

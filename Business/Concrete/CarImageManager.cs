@@ -32,7 +32,7 @@ namespace Business.Concrete
         #region Void
 
         //[SecuredOperation("admin,moderator")]
-        //[ValidationAspect(typeof(CarImageAddDtoValidator))]
+        [ValidationAspect(typeof(CarImageAddDtoValidator))]
         public IResult Add(IFormFile file, CarImage carImage)
         {
             IResult result = BusinessRules.Run(
@@ -50,7 +50,7 @@ namespace Business.Concrete
             return new SuccessResult();
         }
 
-        //[ValidationAspect(typeof(CarImageDeleteDtoValidator))]
+        [ValidationAspect(typeof(CarImageDeleteDtoValidator))]
         public IResult Delete(CarImage carImage)
         {
             IResult result = BusinessRules.Run(
@@ -66,7 +66,7 @@ namespace Business.Concrete
             return new SuccessResult();
         }
 
-        //[ValidationAspect(typeof(CarImageUpdateDtoValidator))]
+        [ValidationAspect(typeof(CarImageUpdateDtoValidator))]
         public IResult Update(IFormFile file, CarImage carImage)
         {
             IResult result = BusinessRules.Run(

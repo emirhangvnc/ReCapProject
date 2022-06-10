@@ -9,7 +9,7 @@ namespace Business.ValidationRules.FluentValidation.BrandValidator
     {
         public BrandDeleteDtoValidator()
         {
-            RuleFor(b => b.Id).NotEmpty().WithMessage($"Marka Id {Messages.NotEmpty}");
+            RuleFor(b => b.BrandId).NotEmpty().WithMessage($"Marka Id {Messages.NotEmpty}");
         }
     }
 }

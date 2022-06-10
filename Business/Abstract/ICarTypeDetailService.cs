@@ -1,5 +1,6 @@
 ﻿using Core.Utilities.Results.Abstract;
 using Entities.Concrete;
+using Entities.DTOs.CarTypeDetailDto;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -15,8 +16,8 @@ namespace Business.Abstract
 
         IDataResult<CarTypeDetail> GetCarTypeDetailId(int detailId);
 
-        IResult Add(CarTypeDetail carTypeDetail);
-        IResult Update(CarTypeDetail carTypeDetail);
-        IResult Delete(CarTypeDetail carTypeDetail);
+        IResult Add(CarTypeDetailAddDto carTypeDetailAddDto);
+        IResult Delete(CarTypeDetailDeleteDto carTypeDetailDeleteDto);
+        IResult Update(CarTypeDetailUpdateDto carTypeDetailUpdateDto);
     }
 }

@@ -8,14 +8,9 @@ namespace Business.AutoMapper.Profiles
     {
         public ModelProfile()
         {
-            CreateMap<ModelAddDto, Model>();
-            CreateMap<Model,ModelAddDto>();
-
-            CreateMap<ModelDeleteDto, Model>();
-            CreateMap<Model, ModelDeleteDto>();
-
-            CreateMap<ModelUpdateDto, Model>();
-            CreateMap<Model, ModelUpdateDto>();
+            CreateMap<ModelAddDto, Model>().ReverseMap();
+            CreateMap<ModelDeleteDto, Model>().ReverseMap();
+            CreateMap<ModelUpdateDto, Model>().ReverseMap();
         }
     }
 }

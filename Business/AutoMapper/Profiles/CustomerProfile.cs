@@ -9,14 +9,9 @@ namespace Business.AutoMapper.Profiles
     {
         public CustomerProfile()
         {
-            CreateMap<CustomerAddDto, Customer>();
-            CreateMap<Customer, CustomerAddDto>();
-
-            CreateMap<CustomerUpdateDto, Customer>();
-            CreateMap<Customer, CustomerUpdateDto>();
-
-            CreateMap<CustomerDeleteDto, Customer>();
-            CreateMap<Customer, CustomerDeleteDto>();
+            CreateMap<CustomerAddDto, Customer>().ReverseMap();
+            CreateMap<CustomerUpdateDto, Customer>().ReverseMap();
+            CreateMap<CustomerDeleteDto, Customer>().ReverseMap();
         }
     }
 }

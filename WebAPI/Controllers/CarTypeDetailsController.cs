@@ -1,5 +1,6 @@
 ﻿using Business.Abstract;
 using Entities.Concrete;
+using Entities.DTOs.CarTypeDetailDto;
 using Microsoft.AspNetCore.Mvc;
 
 namespace WebAPI.Controllers
@@ -41,9 +42,9 @@ namespace WebAPI.Controllers
 
         [HttpPost]
         [Route("[action]")]
-        public IActionResult Add(CarTypeDetail carTypeDetail)
+        public IActionResult Add(CarTypeDetailAddDto carTypeDetailAddDto)
         {
-            var result = _carTypeDetailService.Add(carTypeDetail);
+            var result = _carTypeDetailService.Add(carTypeDetailAddDto);
             if (result.Success)
             {
                 return Ok(result);
@@ -53,9 +54,9 @@ namespace WebAPI.Controllers
 
         [HttpPost]
         [Route("[action]")]
-        public IActionResult Delete(CarTypeDetail carTypeDetail)
+        public IActionResult Delete(CarTypeDetailDeleteDto carTypeDetailDeleteDto)
         {
-            var result = _carTypeDetailService.Delete(carTypeDetail);
+            var result = _carTypeDetailService.Delete(carTypeDetailDeleteDto);
             if (result.Success)
             {
                 return Ok(result);
@@ -65,9 +66,9 @@ namespace WebAPI.Controllers
 
         [HttpPost]
         [Route("[action]")]
-        public IActionResult Update(CarTypeDetail carTypeDetail)
+        public IActionResult Update(CarTypeDetailUpdateDto carTypeDetailUpdateDto)
         {
-            var result = _carTypeDetailService.Update(carTypeDetail);
+            var result = _carTypeDetailService.Update(carTypeDetailUpdateDto);
             if (result.Success)
             {
                 return Ok(result);

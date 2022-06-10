@@ -8,14 +8,9 @@ namespace Business.AutoMapper.Profiles
     {
         public RentalProfile()
         {
-            CreateMap<RentalAddDto, Rental>();
-            CreateMap<Rental, RentalAddDto>();
-
-            CreateMap<RentalDeleteDto, Rental>();
-            CreateMap<Rental, RentalDeleteDto>();
-
-            CreateMap<RentalUpdateDto, Rental>();
-            CreateMap<Rental, RentalUpdateDto>();
+            CreateMap<RentalAddDto, Rental>().ReverseMap();
+            CreateMap<RentalDeleteDto, Rental>().ReverseMap();
+            CreateMap<RentalUpdateDto, Rental>().ReverseMap();
         }
     }
 }

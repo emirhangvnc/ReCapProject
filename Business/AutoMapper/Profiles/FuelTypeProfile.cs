@@ -8,14 +8,9 @@ namespace Business.AutoMapper.Profiles
     {
         public FuelTypeProfile()
         {
-            CreateMap<FuelTypeAddDto, FuelType>();
-            CreateMap<FuelType, FuelTypeAddDto>();
-
-            CreateMap<FuelTypeDeleteDto, FuelType>();
-            CreateMap<FuelType, FuelTypeDeleteDto>();
-
-            CreateMap<FuelTypeUpdateDto, FuelType>();
-            CreateMap<FuelType, FuelTypeUpdateDto>();
+            CreateMap<FuelTypeAddDto, FuelType>().ReverseMap();
+            CreateMap<FuelTypeDeleteDto, FuelType>().ReverseMap();
+            CreateMap<FuelTypeUpdateDto, FuelType>().ReverseMap();
         }
     }
 }

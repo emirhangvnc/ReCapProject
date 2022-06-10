@@ -8,14 +8,9 @@ namespace Business.AutoMapper.Profiles
     {
         public CarImageProfile()
         {
-            CreateMap<CarImageAddDto, CarImage>();
-            CreateMap<CarImage, CarImageAddDto>();
-
-            CreateMap<CarImageDeleteDto, CarImage>();
-            CreateMap<CarImage, CarImageDeleteDto>();
-
-            CreateMap<CarImageUpdateDto, CarImage>();
-            CreateMap<CarImage, CarImageUpdateDto>();
+            CreateMap<CarImageAddDto, CarImage>().ReverseMap();
+            CreateMap<CarImageDeleteDto, CarImage>().ReverseMap();
+            CreateMap<CarImageUpdateDto, CarImage>().ReverseMap();
         }
     }
 }

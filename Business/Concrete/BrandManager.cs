@@ -47,7 +47,7 @@ namespace Business.Concrete
         [CacheRemoveAspect("IBrandService.Get")]
         public IResult Delete(BrandDeleteDto brandDeleteDto)
         {
-            var brand = _brandDal.GetAll().SingleOrDefault(b => b.BrandId == brandDeleteDto.Id);
+            var brand = _brandDal.GetAll().SingleOrDefault(b => b.BrandId == brandDeleteDto.BrandId);
             _brandDal.Delete(brand);
             return new SuccessResult(Messages.BrandDeleted);
         }
@@ -57,13 +57,12 @@ namespace Business.Concrete
         [CacheRemoveAspect("IBrandService.Get")]
         public IResult Update(BrandUpdateDto brandUpdateDto)
         {
-            var brand = _brandDal.GetAll().SingleOrDefault(b => b.BrandId == brandUpdateDto.Id);
+            var brand = _brandDal.GetAll().SingleOrDefault(b => b.BrandId == brandUpdateDto.BrandId);
             if (brand == null)
             {
                 return new ErrorResult("Boyle Bir Marka Bulunmamaktadır");
             }
             var newBrand = _mapper.Map(brandUpdateDto, brand);
-     
             _brandDal.Update(newBrand);
             return new SuccessResult(Messages.BrandUpdated);
         }

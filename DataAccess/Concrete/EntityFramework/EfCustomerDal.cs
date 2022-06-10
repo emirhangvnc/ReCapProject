@@ -29,8 +29,8 @@ namespace DataAccess.Concrete.EntityFramework
                                  FirstName = u.FirstName,
                                  LastName = u.LastName,
                                  GenderName = u.GenderId==0?
-                                                          Gender.Male.ToString():
-                                                          Gender.Famele.ToString()
+                                                Gender.Male.ToString():
+                                                Gender.Famele.ToString()
                              };
                  return result.ToList();
             }

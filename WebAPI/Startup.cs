@@ -48,15 +48,16 @@ namespace WebAPI
             services.AddDependencyResolvers(new ICoreModule[] {
                new CoreModule()
             });
-            services.AddAutoMapper(typeof(AuthProfile));
-            services.AddAutoMapper(typeof(BrandProfile));
-            services.AddAutoMapper(typeof(CarImageProfile));
-            services.AddAutoMapper(typeof(CategoryProfile));
-            services.AddAutoMapper(typeof(ColorProfile));
-            services.AddAutoMapper(typeof(CustomerProfile));
-            services.AddAutoMapper(typeof(FuelTypeProfile));
-            services.AddAutoMapper(typeof(ModelProfile));
-            services.AddAutoMapper(typeof(RentalProfile));
+            services.AddAutoMapper(typeof(AuthProfile),
+                typeof(BrandProfile),
+                typeof(CarImageProfile),
+                typeof(CarTypeDetailProfile),
+                typeof(CategoryProfile),
+                typeof(ColorProfile),
+                typeof(CustomerProfile),
+                typeof(FuelTypeProfile),
+                typeof(ModelProfile),
+                typeof(RentalProfile));
             services.AddSwaggerGen(c =>
             {
                 c.SwaggerDoc("v1", new OpenApiInfo { Title = "WebAPI", Version = "v1" });

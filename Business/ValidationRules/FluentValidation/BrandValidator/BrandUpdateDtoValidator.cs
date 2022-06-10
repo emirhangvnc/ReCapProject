@@ -9,9 +9,9 @@ namespace Business.ValidationRules.FluentValidation.BrandValidator
     {
         public BrandUpdateDtoValidator()
         {
-            RuleFor(b => b.Id).NotEmpty().WithMessage($"Marka Id {Messages.NotEmpty}");
-            RuleFor(b => b.Name).NotEmpty().WithMessage($"Marka İsim {Messages.NotEmpty}");
-            RuleFor(b => b.Name).MaximumLength(30).WithMessage($"Marka İsmi{Messages.Max30Caracter}");
+            RuleFor(b => b.BrandId).NotEmpty().WithMessage($"Marka Id {Messages.NotEmpty}");
+            RuleFor(b => b.BrandName).NotEmpty().WithMessage($"Marka İsim {Messages.NotEmpty}");
+            RuleFor(b => b.BrandName).MaximumLength(30).WithMessage($"Marka İsmi{Messages.Max30Caracter}");
         }
     }
 }

@@ -10,6 +10,9 @@ using Core.Utilities.Security.Jwt;
 using Entities.DTOs;
 using Core.Entities.Concrete;
 using System.Collections.Generic;
+using Business.DependencyResolvers.Autofac;
+using Autofac;
+using Autofac.Core;
 
 namespace ConsoleUI
 {
@@ -17,6 +20,7 @@ namespace ConsoleUI
     {
         static void Main(string[] args)
         {
+            //var modelService=Container
             //ModelManager modelManager = new ModelManager(new EfModelDal());
             //BrandManager brandManager = new BrandManager(new EfBrandDal());
             //CustomerManager customerManager = new CustomerManager(new EfCustomerDal());
@@ -25,5 +29,11 @@ namespace ConsoleUI
             //authManager.Register(UserForRegisterDto userForRegisterDto, string password();
 
         }
+        //private static IContainer BuilderIoC()
+        //{
+        //    var builder = new AutofacBusinessModule();
+        //    builder.RegisterType<ModelManager>().As<IModelService>();
+        //    return builder.Build()
+        //} 
     }
 }

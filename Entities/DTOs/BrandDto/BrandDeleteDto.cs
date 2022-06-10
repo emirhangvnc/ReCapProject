@@ -4,6 +4,6 @@ namespace Entities.DTOs.BrandDto
 {
     public class BrandDeleteDto:IDto
     {
-        public int Id { get; set; }
+        public int BrandId { get; set; }
     }
 }
