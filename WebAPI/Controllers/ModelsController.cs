@@ -63,6 +63,18 @@ namespace WebAPI.Controllers
             return BadRequest(result);
         }
 
+        [HttpGet]
+        [Route("[action]")]
+        public IActionResult GetByColor(int colorId)
+        {
+            var result = _modelService.GetByColorId(colorId);
+            if (result.Success)
+            {
+                return Ok(result);
+            }
+            return BadRequest(result);
+        }
+
         [HttpPost]
         [Route("[action]")]
         public IActionResult Add(ModelAddDto modelAddDto)

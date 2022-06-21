@@ -88,7 +88,7 @@ namespace Business.Concrete
 
         public IDataResult<List<Model>> GetByColorId(int colorId)
         {
-            return new SuccessDataResult<List<Model>>(_modelDal.GetAll().Where(c => c.ColorId == colorId).ToList());
+            return new SuccessDataResult<List<Model>>(_modelDal.GetAll(c => c.ColorId == colorId));
         }
 
         [CacheAspect]

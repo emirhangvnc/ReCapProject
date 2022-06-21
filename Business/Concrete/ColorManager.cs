@@ -31,7 +31,7 @@ namespace Business.Concrete
         [CacheRemoveAspect("IColorService.Get")]
         public IResult Add(ColorAddDto colorAddDto)
         {
-            var result = _colorDal.Get(m => m.ColorName == colorAddDto.Name);
+            var result = _colorDal.Get(c => c.ColorName == colorAddDto.Name);
             if (result != null)
                 return new ErrorResult("Böyle Bir Renk Zaten Mevcut");
 
@@ -45,7 +45,7 @@ namespace Business.Concrete
         [CacheRemoveAspect("IColorService.Get")]
         public IResult Delete(ColorDeleteDto colorDeleteDto)
         {
-            var result = _colorDal.GetAll().SingleOrDefault(m => m.ColorId == colorDeleteDto.Id);
+            var result = _colorDal.GetAll().SingleOrDefault(c => c.ColorId == colorDeleteDto.Id);
             if (result != null)
             {
                 _colorDal.Delete(result);
@@ -59,7 +59,7 @@ namespace Business.Concrete
         [CacheRemoveAspect("IColorService.Get")]
         public IResult Update(ColorUpdateDto colorUpdateDto)
         {
-            var result = _colorDal.Get(m => m.ColorId == colorUpdateDto.Id);
+            var result = _colorDal.Get(c => c.ColorId == colorUpdateDto.Id);
             if (result == null)
             {
                 return new ErrorResult("Bu Veride Bir Renk Yok");

@@ -15,7 +15,7 @@ using Business.ValidationRules.FluentValidation.BrandValidator;
 
 namespace Business.Concrete
 {
-    public class BrandManager : IBrandService
+    public class BrandManager :IBrandService
     {
         IBrandDal _brandDal;
         IMapper _mapper;

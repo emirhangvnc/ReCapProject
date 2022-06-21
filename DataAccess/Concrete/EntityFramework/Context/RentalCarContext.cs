@@ -14,7 +14,7 @@ namespace DataAccess.Concrete.EntityFramework.Context
         }
         public RentalCarContext(DbContextOptions option):base(option)
         {
-             this.Database.SetCommandTimeout(9999999);
+             this.Database.SetCommandTimeout(99999999);
         }
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
